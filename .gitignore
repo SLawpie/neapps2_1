@@ -16,3 +16,8 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+*copy.php
+*org.php
+docker-compose.yml
+*.org
+
