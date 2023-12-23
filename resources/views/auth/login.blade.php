@@ -21,6 +21,25 @@
                                 " />
                         </a>
 
+                        @if (($errors->any()) || ((session('status'))))
+                            <div id="" class="flex justify-center w-full">
+                                <div class="flex w-full pb-6">
+                                    <x-flash-box type="alert">
+                                        @if (session('status'))
+                                            <p class="font-bold">{{ session('status') }}</p>
+                                        @endif
+                                        @if ($errors->any())
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li class="font-bold">{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        @endif
+                                    </x-flash-box>
+                                </div> 
+                            </div>
+                        @endif
+
                     </div>
                 </x-slot>
             </x-auth-card>
