@@ -19,7 +19,7 @@
     </head>
     <body class="antialiased bg-light-bg dark:bg-dark-bg">
 
-        <main class="container mx-auto">
+        <main class="">
             @yield('content')
         </main>
 
