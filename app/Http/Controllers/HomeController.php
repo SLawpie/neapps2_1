@@ -24,11 +24,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $users = User::latest()->get();
-        $user = User::find(1);
-        $user->assignRole('super-admin');
-
-dd($user);
         return view('home');
     }
 }
