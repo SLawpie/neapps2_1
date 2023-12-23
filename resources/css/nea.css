@@ -18,3 +18,73 @@ body {
         0.025rem 0.05rem 0.05rem #aaa;
     }
   }
+
+
+/* 
+|    toggle component 
+*/
+.toggle-container {
+    cursor: pointer;
+    width: 60px;
+    height: 30px;
+    /* background-color: #d946ef; fuchsia-500 */
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 5px;
+    position: relative;
+    transition: background .5s;
+    overflow: hidden;
+}
+.toggle-container .icon svg {
+    stroke: #fff;
+    stroke-width: 1.5px;
+    width: 19px;
+}
+.toggle-container .toggle-dark-icon {
+    margin-left: 12px;
+    margin-top: 0px;
+}
+.toggle-container .toggle-dark-icon svg {
+    transition: transform .9s;
+    transform: translateX(0px);
+}
+.toggle-container .toggle-light-icon {
+    margin-top: 0px;
+}
+.toggle-container .toggle-light-icon svg {
+    transform-origin: center;
+    transform: scale(.7) rotate(0deg);
+    position: relative;
+    right: 30px;
+    transition: transform .9s, right .5s;
+}
+.toggle-container .toggle-circle {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    background-color: #fff;
+    border-radius: 50%;
+    /* opacity: .2; */
+    left: 10%;
+    transition: left .5s;
+}
+
+.toggle-check {
+    display: none;
+}
+.toggle-check:checked ~ .toggle-label .toggle-container {
+/* background: #3b82f6; blue-500 */
+}
+.toggle-check:checked ~ .toggle-label .toggle-container .toggle-circle {
+    left: 58%;
+}
+.toggle-check:checked ~ .toggle-label .toggle-container .toggle-light-icon svg {
+    transform: scale(1) rotate(180deg);
+    right: 0px;
+}
+.toggle-check:checked ~ .toggle-label .toggle-container .toggle-dark-icon svg {
+    transform: translateX(30px);
+}

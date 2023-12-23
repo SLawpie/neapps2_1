@@ -15,6 +15,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Scripts -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         @vite('resources/css/app.css')
     </head>
     <body class="antialiased bg-light-bg dark:bg-dark-bg">
@@ -23,5 +24,8 @@
             @yield('content')
         </main>
 
+
+        <!-- Scripts -->
+        <script src="{{ asset('js/nea.js') }}"></script>
     </body>
 </html>
