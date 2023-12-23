@@ -1,4 +1,4 @@
-<div class="flex flex-col items-center justify-center h-screen">
+<div class="flex w-full flex-col items-center justify-center">
     <div class="w-full sm:max-w-md">
         {{ $logo }}
     </div>

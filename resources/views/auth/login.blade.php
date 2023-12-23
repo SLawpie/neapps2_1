@@ -7,8 +7,8 @@
         ">
         <x-toggle-dark-light />
     </div>
-    <div class="flex flex-row mt-8 sm:-mt-8">
-        <div>
+    <div class="flex w-full justify-center flex-row sm:-mt-12">
+        <div class="w-full">
             <x-auth-card>
                 <x-slot name="logo">
                     <div class="flex flex-col items-center">
