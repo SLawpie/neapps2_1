@@ -42,6 +42,28 @@
 
                     </div>
                 </x-slot>
+
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
+
+                    <div>
+                        <x-label 
+                            for="username" 
+                            :value="__('auth.user')" 
+                        />
+
+                        <x-input 
+                            id="username" 
+                            class="block mt-1 w-full bg-light-bg-secondary" 
+                            type="text" 
+                            name="username" 
+                            :value="old('username')" 
+                            required 
+                            autofocus 
+                        />
+                    </div>
+                </form>
+
             </x-auth-card>
         </div>
     </div>
