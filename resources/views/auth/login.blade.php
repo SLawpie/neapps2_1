@@ -1,72 +1,135 @@
-@extends('layouts.app')
+@extends('layouts.guest')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+<div class="flex flex-wrap sm:h-screen justify-center">
+    <div class="flex w-full justify-end 
+        pt-4 pe-6
+        ">
+        <x-toggle-dark-light />
+    </div>
+    <div class="flex w-full justify-center flex-row sm:-mt-12">
+        <div class="w-full">
+            <x-auth-card>
+                <x-slot name="logo">
+                    <div class="flex flex-col items-center">
+                        <a href="/">
+                            <x-application-logo 
+                                class="w-32 h-32 fill-current mb-4  
+                                text-light-text dark:text-dark-text 
+                                hover:scale-110 
+                                transition ease-in-out delay-150 duration-300
+                                " />
+                        </a>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                        @if (($errors->any()) || ((session('status'))))
+                            <div id="" class="flex justify-center w-full">
+                                <div class="flex w-full pb-6">
+                                    <x-flash-box type="alert">
+                                        @if (session('status'))
+                                            <p class="font-bold">{{ session('status') }}</p>
+                                        @endif
+                                        @if ($errors->any())
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li class="font-bold">{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        @endif
+                                    </x-flash-box>
+                                </div> 
                             </div>
-                        </div>
+                        @endif
 
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+                    </div>
+                </x-slot>
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
 
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+                    <!-- username -->
+                    <div>
+                        <x-label 
+                            for="username" 
+                            :value="__('auth.user')" 
+                        />
 
-                        <div class="row mb-3">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                        <x-input 
+                            id="username" 
+                            class="block mt-1 w-full bg-light-bg-secondary" 
+                            type="text" 
+                            name="username" 
+                            :value="old('username')" 
+                            required 
+                            autofocus 
+                        />
+                    </div>
 
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
+                    <!-- password -->
+                    <div class="mt-4">
+                        <x-label 
+                            for="password" 
+                            :value="__('auth.password.password')" 
+                        />
+
+                        <x-input id="password" class="block mt-1 w-full first-line bg-light-bg-secondary"
+                            type="password"
+                            name="password"
+                            required
+                        />
+                    </div>
+
+                    <!-- Remember Me -->
+                    <div class="block mt-4 pt-2">
+                        <div class="inline-flex items-center">
+                            <label
+                                class="relative flex items-center rounded-full cursor-pointer"
+                                for="remember_me"
+                                data-ripple-dark="true">
+                                <input
+                                    type="checkbox"
+                                    class="before:content[''] peer relative h-5 w-5 bg-light-bg-secondary dark:bg-dark-bg-primary cursor-pointer appearance-none rounded-md border border-light-bg-primary dark:border-dark-bg-primary transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-7 before:w-7 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-lg before:bg-light-accent dark:before:bg-dark-accent before:opacity-0 before:transition-opacity dark:checked:border-dark-accent checked:bg-light-accent dark:checked:bg-dark-accent checked:before:bg-light-accent dark:checked:before:bg-dark-accent hover:before:opacity-30 focus:outline-none focus-visible:ring focus-visible:ring-light-accent dark:focus-visible:ring-dark-accent"
+                                    id="remember_me"/>
+                                <div 
+                                    class="absolute text-light-bg-primary transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        class="h-3.5 w-3.5"
+                                        viewBox="0 0 20 20"
+                                        fill="currentColor"
+                                        stroke="currentColor"
+                                        stroke-width="1">
+                                        <path
+                                            fill-rule="evenodd"
+                                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                            clip-rule="evenodd">
+                                        </path>
+                                    </svg>
                                 </div>
-                            </div>
+                            </label>
+                            <label
+                                class="pl-2 font-medium text-sm text-light-text-primary dark:text-dark-text-primary cursor-pointer select-none"
+                                for="remember_me">
+                                {{ __('auth.remember') }} 
+                            </label>
                         </div>
+                    </div>
 
-                        <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
+                    <div class="flex items-center justify-end mt-4">
+                        {{-- @if (Route::has('password.request'))
+                            <a class="underline text-sm text-gray-600 hover:text-gray-900" 
+                               href="{{ route('password.request') }}">
+                                {{ __('Forgot your password?') }}
+                            </a>
+                        @endif --}}
+        
+                        <x-button class="ml-3">
+                            {{ __('auth.login.button') }}
+                        </x-button>
+                    </div>
 
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+                </form>
+
+            </x-auth-card>
         </div>
     </div>
 </div>
