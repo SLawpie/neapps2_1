@@ -1,0 +1,20 @@
+body {
+    transition: 1s background;
+  }
+  
+  hover {
+    transition: transform .5s
+  }
+
+  .engraved {
+    text-shadow:
+      -0.012rem -0.025rem 0.025rem #444,
+      0.012rem 0.025rem 0.025rem #aaa;
+  }
+  @media (min-width: 640px) {
+    .engraved {
+      text-shadow:
+        -0.025rem -0.05rem 0.05rem #444,
+        0.025rem 0.05rem 0.05rem #aaa;
+    }
+  }

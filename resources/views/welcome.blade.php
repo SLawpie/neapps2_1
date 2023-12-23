@@ -1,13 +1,14 @@
-<!doctype html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  @vite('resources/css/app.css')
-</head>
-<body>
-  <h1 class="text-3xl font-bold underline bg-teal-500">
-    Hello world!
-  </h1>
-</body>
-</html>
+@extends('layouts.guest')
+
+@section('content')
+    <div class="flex h-screen items-center justify-center">
+        <a href="">
+            <div class="text-light-bg-primary dark:text-dark-bg-secondary 
+                text-6xl sm:text-9xl
+                engraved
+                ">
+                {{config('app.name')}}&sup2;
+            </div>
+        </a>
+    </div>
+@endsection
