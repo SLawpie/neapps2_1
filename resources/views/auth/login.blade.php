@@ -9,14 +9,21 @@
     </div>
     <div class="flex flex-row mt-8 sm:-mt-8">
         <div>
-            <div class="text-light-bg-primary dark:text-dark-bg-secondary 
-                text-6xl sm:text-9xl
-                hover:scale-110
-                transition ease-in-out delay-150 duration-300
-                engraved
-                ">
-                {{config('app.name')}}&sup2;
-            </div>
+            <x-auth-card>
+                <x-slot name="logo">
+                    <div class="flex flex-col items-center">
+                        <a href="/">
+                            <x-application-logo 
+                                class="w-32 h-32 fill-current mb-4  
+                                text-light-text dark:text-dark-text 
+                                hover:scale-110 
+                                transition ease-in-out delay-150 duration-300
+                                " />
+                        </a>
+
+                    </div>
+                </x-slot>
+            </x-auth-card>
         </div>
     </div>
 </div>
