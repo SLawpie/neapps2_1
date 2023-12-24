@@ -26,13 +26,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-
-        //
-        // test if sspatie-permissions workss correctly
-        //
         $user = Auth::user();
-        $user->assignRole('super-admin');
+        //
+        // test if sspatie-permissions works correctly
+        //
+        // $user->assignRole('super-admin');
         // dd($user);
+
+        // get the names of the user's roles
+        // $roles = $user->getRoleNames();
+        if ($user->can('edit users')) {
+            return view('users.admin-dashboard');
+        };
 
         return view('home');
     }
