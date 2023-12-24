@@ -17,22 +17,23 @@
 
 
         <!-- Scripts -->
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     </head>
     <body class="antialiased bg-light-bg-primary dark:bg-dark-bg-primary">
-        <div id="app" class="flex flex-col h-screen">
+        <div class="flex flex-col h-screen">
             <!-- Page Heading -->
             <div class="w-full">
                 @include('layouts.navigation')
+
             </div>
 
-            <main class="py-4">
+            <main class="">
                 @yield('content')
             </main>
         </div>
 
-        <!-- Scripts -->
+          <!-- Scripts -->
         <script src="{{ asset('js/nea.js') }}"></script>
     </body>
 </html>

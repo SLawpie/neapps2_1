@@ -88,3 +88,72 @@ body {
 .toggle-check:checked ~ .toggle-label .toggle-container .toggle-dark-icon svg {
     transform: translateX(30px);
 }
+
+
+
+.tooltip {
+    position: relative;
+  }
+  
+  .tooltip .tooltip-text {
+    visibility: hidden;
+    width: 170px;
+    /* background-color: black; */
+    /* color: #fff; */
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    top: 120%;
+    left: 50%;
+    margin-left: -120px;
+  }
+  
+  .tooltip:hover .tooltip-text {
+    visibility: visible;
+  }
+  
+
+
+#hideMe {
+    -moz-animation: cssAnimation 0s ease-in 4s forwards;
+    /* Firefox */
+    -webkit-animation: cssAnimation 0s ease-in 4s forwards;
+    /* Safari and Chrome */
+    -o-animation: cssAnimation 0s ease-in 4s forwards;
+    /* Opera */
+    animation: cssAnimation 0s ease-in 4s forwards;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+  }
+  /* @keyframes cssAnimation {
+    to {
+        width:0;
+        height:0;
+        overflow:hidden;
+    }
+  }
+  @-webkit-keyframes cssAnimation {
+    to {
+        width:0;
+        height:0;
+        visibility:hidden;
+    }
+  } */
+  @keyframes cssAnimation {
+    0%   {opacity: 1;}
+    90%  {opacity: 1;}
+    100% {opacity: 0;
+          width:0;
+          height:0;
+          overflow:hidden;}
+  }
+  @-webkit-keyframes cssAnimation {
+    0%   {opacity: 1;}
+    90%  {opacity: 1;}
+    100% {opacity: 0;
+          width:0;
+          height:0;
+          visibility:hidden;}
+  }
