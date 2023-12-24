@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AdminRoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +26,8 @@ Auth::routes([
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// Route::prefix('admin')->name('admin.')->group(function(){
+Route::name('admin.')->group(function(){
+    Route::get('/roles', [AdminRoleController::class, 'show'])->name('roles.show');
+});

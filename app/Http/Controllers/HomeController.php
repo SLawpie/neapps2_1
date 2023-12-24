@@ -36,7 +36,10 @@ class HomeController extends Controller
         // get the names of the user's roles
         // $roles = $user->getRoleNames();
         if ($user->can('edit users')) {
-            return view('users.admin-dashboard');
+            $users = User::get();
+            return view('admin.dashboard')->with([
+                'users' => $users,
+            ]);
         };
 
         return view('home');
