@@ -77,7 +77,7 @@
                             <div class="flex justify-center font-medium text-sm text-light-text-secondary dark:text-dark-text-secondary">
                                 {{ Auth::user()->email }}
                             </div>
-                            <div class="flex justify-end px-2 pt-4 text-xs text-dark-text-secondary dark:text-light-text-secondary">
+                            <div class="flex justify-end px-2 pt-4 text-xs text-light-text-secondary/50 dark:text-dark-text-secondary/50">
                                 {{ $version }}
                             </div>
                         </div>
@@ -114,6 +114,57 @@
         </div>
     </div>
 
+    <!-- Responsive Navigation Menu -->
+    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
+                {{ __('app.home') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('home')">
+                {{ __('medical-reports.name') }}
+            </x-responsive-nav-link>
+        </div>
 
+        <!-- Responsive Settings Options -->
+        <div class="pt-4 pb-1 border-t border-light-accent dark:border-dark-accent">
+            <div class="px-4 flex justify-between items-center">
+                <div>
+                    <div class="font-medium text-base text-light-text-primary dark:text-dark-text-primary">
+                        {{ Auth::user()->firstname }}
+                    </div>
+                    <div class="font-medium text-sm text-light-text-secondary dark:text-dark-text-secondary">
+                        {{ Auth::user()->email }}
+                    </div>
+                </div>
+                {{-- <div>
+                   <x-toggle-dark-light />
+                </div> --}}
+            </div>
+
+            <div class="mt-3 space-y-1">
+                {{-- <x-responsive-nav-link :href="route('user.show', Crypt::encryptString(Auth::user()->id))"> --}}
+                <x-responsive-nav-link>
+                    {{ __('app.user.settings') }}
+                </x-responsive-nav-link>
+                <!-- Authentication -->
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+
+                    <x-responsive-nav-link :href="route('logout')"
+                            onclick="event.preventDefault();
+                                        this.closest('form').submit();">
+                        {{ __('auth.logout') }}
+                    </x-responsive-nav-link>
+                </form>
+            </div>
+
+            <div class="px-4 flex justify-end items-center">
+                <div class="text-xs text-light-text-secondary/50 dark:text-dark-text-secondary/50">
+                    {{ $version }}
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 </nav>
