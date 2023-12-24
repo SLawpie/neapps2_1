@@ -1,13 +1,14 @@
 @extends('layouts.guest')
 
 @section('content')
-<div class="flex flex-wrap sm:h-screen justify-center">
-    <div class="flex w-full justify-end 
+<div class="flex flex-wrap justify-center">
+    <div class="flex w-full justify-end h-16
         pt-4 pe-6
+        border-b border-light-accent dark:border-dark-accent
         ">
         <x-toggle-dark-light />
     </div>
-    <div class="flex w-full justify-center flex-row sm:-mt-12">
+    <div class="flex w-full justify-center flex-row sm:pt-10">
         <div class="w-full">
             <x-auth-card>
                 <x-slot name="logo">
