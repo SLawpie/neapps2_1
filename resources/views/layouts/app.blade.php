@@ -23,10 +23,10 @@
     <body class="antialiased bg-light-bg-primary dark:bg-dark-bg-primary">
         <div class="flex flex-col h-screen">
             <!-- Page Heading -->
-            <div class="w-full">
+            <div class="w-full drop-shadow-md">
                 @include('layouts.navigation')
 
-                <header class="bg-light-bg-secondary dark:bg-dark-bg-secondary drop-shadow-md">
+                <header class="bg-light-bg-secondary dark:bg-dark-bg-secondary">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         @yield('header')
                     </div>

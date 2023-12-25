@@ -2,7 +2,9 @@
     $version = implode('.', Config::get('app.version'));
 @endphp
 
-<nav x-data="{ open: false }" class="bg-light-bg-secondary dark:bg-dark-bg-secondary border-b border-light-accent dark:border-dark-accent text-light-text-primary dark:text-dark-text-primary">
+<nav x-data="{ open: false }" class="bg-light-bg-secondary dark:bg-dark-bg-secondary 
+                                border-b border-light-accent dark:border-dark-accent 
+                                text-light-text-primary dark:text-dark-text-primary">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex h-16">
