@@ -86,7 +86,7 @@ class AdminPermissionController extends Controller
         }
 
         $request->validate([
-            'new-name' => 'required|regex:/^[\pL\s\-]+$/u|max:128|unique:permissions,name',
+            'new-name' => 'required|regex:/^[\pL\d\s\-]+$/u|max:128|unique:permissions,name',
         ]);
 
         $new_name =  $request->get('new-name');
