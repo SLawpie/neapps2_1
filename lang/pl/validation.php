@@ -85,7 +85,7 @@ return [
     'max' => [
         'numeric' => 'The :attribute must not be greater than :max.',
         'file' => 'Wczytywany :attribute nie może być większy niż :max kB.',
-        'string' => 'The :attribute must not be greater than :max characters.',
+        'string' => 'Podana :attribute nie może przekraczać :max znaków.',
         'array' => 'The :attribute must not have more than :max items.',
     ],
     // 'mimes' => 'The :attribute must be a file of type: :values.',
@@ -126,7 +126,7 @@ return [
     'starts_with' => 'The :attribute must start with one of the following: :values.',
     'string' => 'The :attribute must be a string.',
     'timezone' => 'The :attribute must be a valid timezone.',
-    'unique' => 'The :attribute has already been taken.',
+    'unique' => 'Podana :attribute już istnieje.',
     'uploaded' => 'The :attribute failed to upload.',
     'url' => 'The :attribute must be a valid URL.',
     'uuid' => 'The :attribute must be a valid UUID.',
@@ -156,8 +156,11 @@ return [
             'alpha_num' => 'Nazwa użytkownika może zwierać tylko litery i cyfry.', 
         ],
         'confirm-newpassword' => [
-            'same' => "Potwierdzenie hasła nie jest zgodne."
-        ]
+            'same' => 'Potwierdzenie hasła nie jest zgodne.'
+        ],
+        'new-name' => [
+            'regex' => 'Nazwa zawiera niedozwolone znaki.'
+        ],
     ],
 
     /*
@@ -175,7 +178,8 @@ return [
         'file' => "'plik'",
         'new-firstname' => "'Imię'",
         'new-lastname' => "'Nazwisko'",
-        'newpassword' => 'hasło'
+        'newpassword' => 'hasło',
+        'new-name' => 'nazwa',
     ],
 
 ];

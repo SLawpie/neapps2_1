@@ -4,7 +4,7 @@
     "]) }}>
     <div class="sm:flex items-center px-2 py-4 sm:px-4">
         <div class="w-full">
-            <a href="{{ route('admin.roles.show') }}">
+            <a href="{{ route('admin.roles.index') }}">
                 <div class="flex flex-row px-2 items-center rounded-lg 
                     hover:bg-light-bg-primary/70 hover:dark:bg-dark-bg-primary/70
                     cursor-pointer">
@@ -17,16 +17,18 @@
                     </div>
                 </div>
             </a>
-            <div class="flex flex-row px-2 items-center rounded-lg 
-                hover:bg-light-bg-primary/70 hover:dark:bg-dark-bg-primary/70
-                cursor-pointer">
-                <div class="w-8 text-light-text-secondary/50 dark:text-dark-text-secondary/50">
-                    <x-icons.bars-3-bottom-left class=""/>
+            <a href="{{ route('admin.permissions.index') }}">
+                <div class="flex flex-row px-2 items-center rounded-lg 
+                    hover:bg-light-bg-primary/70 hover:dark:bg-dark-bg-primary/70
+                    cursor-pointer">
+                    <div class="w-8 text-light-text-secondary/50 dark:text-dark-text-secondary/50">
+                        <x-icons.bars-3-bottom-left class=""/>
+                    </div>
+                    <div class="font-semibold ps-2">
+                        Uprawnienia
+                    </div>
                 </div>
-                <div class="font-semibold ps-2">
-                    Uprawnienia
-                </div>
-            </div>
+            </a>
         </div>
     </div>
 </div>

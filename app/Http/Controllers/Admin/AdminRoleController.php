@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Spatie\Permission\Models\Role;
+
 
 class AdminRoleController extends Controller
 {
@@ -16,8 +18,12 @@ class AdminRoleController extends Controller
         $this->middleware('auth');
     }
 
-    public function show()
+    public function index()
     {
-        return view('admin.roles-list');
+        // $roles = Role::all()->pluck('name');
+        $roles = Role::all();
+        return view('admin.roles-list')->with([
+            'roles' => $roles,
+        ]);
     }
 }

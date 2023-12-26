@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminRoleController;
+use App\Http\Controllers\Admin\AdminPermissionController;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,5 +31,14 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // Route::prefix('admin')->name('admin.')->group(function(){
 Route::name('admin.')->group(function(){
-    Route::get('/roles', [AdminRoleController::class, 'show'])->name('roles.show');
+    Route::get('/roles', [AdminRoleController::class, 'show'])->name('roles.index');
+    Route::get('/permissions', [AdminPermissionController::class, 'index'])->name('permissions.index');
+    Route::post('/permissions', [AdminPermissionController::class, 'store'])->name('permission.store');
+    Route::get('/permissions/create', [AdminPermissionController::class, 'create'])->name('permission.create');
+    Route::get('/permissions/{permission}/delete', [AdminPermissionController::class, 'destroy'])->name('permission.delete');
+    Route::get('/permissions/{permission}/show', [AdminPermissionController::class, 'show'])->name('permission.show');
+    Route::get('/permissions/{permission}/edit', [AdminPermissionController::class, 'edit'])->name('permission.edit');
+    Route::post('/permissions/{permission}/edit', [AdminPermissionController::class, 'update'])->name('permission.update');
+    
+    Route::get('/{role}', [AdminPermissionController::class, 'destroy'])->name('role.delete');
 });
