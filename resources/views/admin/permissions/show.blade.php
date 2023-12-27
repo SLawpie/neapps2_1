@@ -37,13 +37,13 @@
                             <div class="text-base opacity-50">ID: {{ $permission->id }}</div>
                         </div>
                         <div class="flex flex-row">
-                            <a href="{{ route('admin.permission.edit', Crypt::encryptString($permission->id)) }}">
+                            <a href="{{ route('admin.permissions.edit', Crypt::encryptString($permission->id)) }}">
                                 <x-button>
                                     Edytuj
                                 </x-button>
                             </a>
                             <div class="px-2">
-                                <a href="{{ route('admin.permission.delete', Crypt::encryptString($permission->id)) }}">
+                                <a href="{{ route('admin.permissions.delete', Crypt::encryptString($permission->id)) }}">
                         
                                 @if (count($roles) <> 0) 
                                     <x-button-red disabled>Usuń</x-button-red>

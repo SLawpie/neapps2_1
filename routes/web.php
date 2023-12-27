@@ -31,14 +31,19 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // Route::prefix('admin')->name('admin.')->group(function(){
 Route::name('admin.')->group(function(){
-    Route::get('/roles', [AdminRoleController::class, 'index'])->name('roles.index');
-    Route::get('/permissions', [AdminPermissionController::class, 'index'])->name('permissions.index');
-    Route::post('/permissions', [AdminPermissionController::class, 'store'])->name('permission.store');
-    Route::get('/permissions/create', [AdminPermissionController::class, 'create'])->name('permission.create');
-    Route::get('/permissions/{permission}/delete', [AdminPermissionController::class, 'destroy'])->name('permission.delete');
-    Route::get('/permissions/{permission}/show', [AdminPermissionController::class, 'show'])->name('permission.show');
-    Route::get('/permissions/{permission}/edit', [AdminPermissionController::class, 'edit'])->name('permission.edit');
-    Route::post('/permissions/{permission}/edit', [AdminPermissionController::class, 'update'])->name('permission.update');
-    
-    Route::get('/{role}', [AdminPermissionController::class, 'destroy'])->name('role.delete');
+    Route::name('roles.')->prefix('roles')->group(function() {
+        Route::get('/', [AdminRoleController::class, 'index'])->name('index');
+        Route::get('/cr', [AdminPermissionController::class, 'create'])->name('create');
+        Route::get('/{role}/st', [AdminPermissionController::class, 'show'])->name('show');
+        Route::get('/{role}/de', [AdminPermissionController::class, 'destroy'])->name('delete');
+    });
+    Route::name('permissions.')->prefix('permissions')->group(function() {
+        Route::get('/', [AdminPermissionController::class, 'index'])->name('index');
+        Route::post('/', [AdminPermissionController::class, 'store'])->name('store');
+        Route::get('/cr', [AdminPermissionController::class, 'create'])->name('create');
+        Route::get('/{permission}/st', [AdminPermissionController::class, 'show'])->name('show');
+        Route::get('/{permission}/ed', [AdminPermissionController::class, 'edit'])->name('edit');
+        Route::post('/{permission}/ed', [AdminPermissionController::class, 'update'])->name('update');
+        Route::get('/{permission}/de', [AdminPermissionController::class, 'destroy'])->name('delete');
+    });
 });

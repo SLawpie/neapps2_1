@@ -29,7 +29,7 @@
                             Wykaz uprawnień: 
                         </div>
                         <div class="flex flex-row py-2">
-                            <a href="{{ route('admin.permission.create') }}">
+                            <a href="{{ route('admin.permissions.create') }}">
                                 <x-button>
                                     Dodaj nowe
                                 </x-button>
@@ -48,12 +48,12 @@
                                         <div class="opacity-50">[id: {{ $permission->id }}, guard: {{ $permission->guard_name }}]</div>
                                     </div>
                                 </div>
-                                <a href="{{ route('admin.permission.show', Crypt::encryptString($permission->id)) }}">
+                                <a href="{{ route('admin.permissions.show', Crypt::encryptString($permission->id)) }}">
                                     <div class="flex flex-row px-4 py-1 w-20 justify-center rounded-md uppercase text-xs hover:bg-light-accent dark:hover:bg-dark-accent hover:text-dark-text-primary hover:font-semibold">
                                         Pokaż
                                     </div>
                                 </a>
-                                <a href="{{ route('admin.permission.delete', Crypt::encryptString($permission->id)) }}">
+                                <a href="{{ route('admin.permissions.delete', Crypt::encryptString($permission->id)) }}">
                                     <div class="flex flex-row px-4 py-1 w-20 justify-center rounded-md uppercase text-xs hover:bg-red-500 hover:text-dark-text-primary hover:font-semibold">
                                         Usuń
                                     </div>

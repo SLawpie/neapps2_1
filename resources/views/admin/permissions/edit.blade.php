@@ -13,7 +13,7 @@
         </a>
     </div>
     <div class="h-6 -ms-1  text-light-text-primary dark:text-dark-text-primary">
-        <a href="{{ route('admin.permission.show', Crypt::encryptString($permission->id)) }}">
+        <a href="{{ route('admin.permissions.show', Crypt::encryptString($permission->id)) }}">
             <x-icons.chevron-double-left class="pe-2"/>
         </a>
     </div>
@@ -25,7 +25,7 @@
 
 @section('content')
     <div class="pt-8">
-    <form method="POST" action="{{ route('admin.permission.update', Crypt::encryptString($permission->id)) }}">
+    <form method="POST" action="{{ route('admin.permissions.update', Crypt::encryptString($permission->id)) }}">
         @csrf
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">

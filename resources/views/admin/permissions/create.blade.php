@@ -20,7 +20,7 @@
 
 @section('content')
     <div class="pt-8">
-    <form method="POST" action="{{ route('admin.permission.store') }}">
+    <form method="POST" action="{{ route('admin.permissions.store') }}">
         @csrf
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
