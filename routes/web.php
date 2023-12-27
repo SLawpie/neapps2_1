@@ -31,7 +31,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // Route::prefix('admin')->name('admin.')->group(function(){
 Route::name('admin.')->group(function(){
-    Route::get('/roles', [AdminRoleController::class, 'show'])->name('roles.index');
+    Route::get('/roles', [AdminRoleController::class, 'index'])->name('roles.index');
     Route::get('/permissions', [AdminPermissionController::class, 'index'])->name('permissions.index');
     Route::post('/permissions', [AdminPermissionController::class, 'store'])->name('permission.store');
     Route::get('/permissions/create', [AdminPermissionController::class, 'create'])->name('permission.create');
