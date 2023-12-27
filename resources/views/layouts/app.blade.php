@@ -23,17 +23,18 @@
     <body class="antialiased bg-light-bg-primary dark:bg-dark-bg-primary">
         <div class="flex flex-col h-screen">
             <!-- Page Heading -->
-            <div class="w-full drop-shadow-md">
+            {{-- <div class="w-full drop-shadow-md"> --}}
+            <div class="w-full border-b-4 border-light-bg-primary dark:border-dark-bg-primary">
                 @include('layouts.partials.navigation')
 
-                <header class="bg-light-bg-secondary dark:bg-dark-bg-secondary">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                <header class="h-20 bg-light-bg-secondary dark:bg-dark-bg-secondary ps-2">
+                    <div class="flex h-full items-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         @yield('header')
                     </div>
                 </header>
             </div>
 
-            <main class="">
+            <main class="overflow-y-auto">
                 @yield('content')
             </main>
         </div>

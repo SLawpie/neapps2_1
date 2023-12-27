@@ -4,7 +4,7 @@
         
             @if (session('messagetype'))
                 <x-flash-box type="{{ session('messagetype') }}">
-                    <p class="font-bold">{{ session('message') }}</p>
+                    <p class="font-medium">{{ session('message') }}</p>
                 </x-flash-box>
             @endif
             @if ($errors->any())
