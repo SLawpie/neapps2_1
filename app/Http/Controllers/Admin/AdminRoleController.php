@@ -22,7 +22,7 @@ class AdminRoleController extends Controller
     {
         // $roles = Role::all()->pluck('name');
         $roles = Role::all();
-        return view('admin.roles-list')->with([
+        return view('admin.roles.index')->with([
             'roles' => $roles,
         ]);
     }

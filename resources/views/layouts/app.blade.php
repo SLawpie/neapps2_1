@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="theme-color" content="#f1f5f9">
-        @include('layouts.favicons')
+        @include('layouts.partials.favicons')
 
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -24,7 +24,7 @@
         <div class="flex flex-col h-screen">
             <!-- Page Heading -->
             <div class="w-full drop-shadow-md">
-                @include('layouts.navigation')
+                @include('layouts.partials.navigation')
 
                 <header class="bg-light-bg-secondary dark:bg-dark-bg-secondary">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">

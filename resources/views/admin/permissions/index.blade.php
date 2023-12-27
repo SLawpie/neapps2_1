@@ -17,15 +17,7 @@
     <div class="pt-8">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
-            @if (session('messagetype'))
-                <div id="hideMe" class="flex justify-center w-full">
-                    <div class="flex w-full sm:w-3/4 pb-6">
-                        <x-flash-box type="{{ session('messagetype') }}">
-                            <p class="font-bold">{{ session('message') }}</p>
-                        </x-flash-box>
-                    </div> 
-                </div>
-            @endif
+            @include('layouts.partials.massages')
 
             <div class="bg-light-bg-secondary dark:bg-dark-bg-secondary 
                     text-light-text-primary dark:text-dark-text-primary 
@@ -61,9 +53,6 @@
                                         Pokaż
                                     </div>
                                 </a>
-                                {{-- <div class="flex flex-row px-4 py-1 w-20 justify-center rounded-md uppercase text-xs hover:bg-light-accent dark:hover:bg-dark-accent hover:text-dark-text-primary hover:font-semibold">
-                                    Edytuj
-                                </div> --}}
                                 <a href="{{ route('admin.permission.delete', Crypt::encryptString($permission->id)) }}">
                                     <div class="flex flex-row px-4 py-1 w-20 justify-center rounded-md uppercase text-xs hover:bg-red-500 hover:text-dark-text-primary hover:font-semibold">
                                         Usuń

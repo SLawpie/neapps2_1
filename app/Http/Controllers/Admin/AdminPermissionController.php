@@ -26,7 +26,7 @@ class AdminPermissionController extends Controller
     {
         // $roles = Role::all()->pluck('name');
         $permissions = Permission::all();
-        return view('admin.permissions-list')->with([
+        return view('admin.permissions.index')->with([
             'permissions' => $permissions,
         ]);
     }
@@ -49,7 +49,7 @@ class AdminPermissionController extends Controller
         );
         $users = User::with('permissions')->get();
 
-        return view('admin.permission')->with([
+        return view('admin.permissions.show')->with([
             'permission' => $permission,
             'roles' => $roles,
             'users' => $users
@@ -69,7 +69,7 @@ class AdminPermissionController extends Controller
 
         $permission = Permission::where('id', $decrypted)->first();
 
-        return view('admin.edit-permission')->with([
+        return view('admin.permissions.edit')->with([
             'permission' => $permission
         ]);
     }
@@ -111,7 +111,7 @@ class AdminPermissionController extends Controller
 
     public function create() {
 
-        return view('admin.create-permission');
+        return view('admin.permissions.create');
     }
 
     public function store(Request $request) {

@@ -1,12 +1,24 @@
 @extends('layouts.app')
 
 @section('header')
-    <x-admin-header />
+<div class="flex">
+    <div class="h-6 -ms-1  text-light-text-primary dark:text-dark-text-primary">
+        <a href="{{ route('home') }}">
+            <x-icons.chevron-double-left class="pe-2"/>
+        </a>
+    </div>
+    <h2 class="bg-light-bg-secondary dark:bg-dark-bg-secondary font-semibold text-xl text-light-text-primary dark:text-dark-text-primary leading-tight">
+        Zarządzanie rolami
+    </h2>
+</div>
 @endsection
 
 @section('content')
     <div class="pt-8">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+
+            @include('layouts.partials.massages')
+
             <div class="bg-light-bg-secondary dark:bg-dark-bg-secondary 
                     text-light-text-primary dark:text-dark-text-primary 
                     shadow-sm sm:rounded-lg
@@ -29,9 +41,6 @@
                             </div>
                             <div class="px-2">
                                 <x-button>Pokaż</x-button>
-                            </div>
-                            <div class="px-2">
-                                <x-button>Edytuj</x-button>
                             </div>
                             <div class="px-2">
                                 <x-button-red>Usuń</x-button-red>
