@@ -6,13 +6,13 @@
             <x-icons.home />
         </x-path-link>
         <x-icons.dot />
-        <x-path-link :href="route('admin.permissions.index')">
+        <x-path-link :href="route('admin.roles.index')">
             <x-icons.chevron-double-left />
         </x-path-link>
         <x-icons.dot class="-ms-1"/>
         
         <h2 class="bg-light-bg-secondary dark:bg-dark-bg-secondary font-semibold text-xl text-light-text-primary dark:text-dark-text-primary leading-tight">
-            Zarządzanie uprawnieniami
+            Zarządzanie rolami
         </h2>
     </div>
 @endsection
@@ -30,21 +30,21 @@
                 <div class="sm:flex px-4 pt-6 sm:px-6"> 
                     <div class="sm:flex flex-row items-center justify-between w-full">
                         <div class="text-xl pb-4">
-                            <span class="font-bold">Uprawnienie: </span>
-                            <span class="font-mono ps-2">{{ $permission->name }}</span>
-                            <div class="text-base opacity-50">guard: {{ $permission->guard_name }}</div>
-                            <div class="text-base opacity-50">ID: {{ $permission->id }}</div>
+                            <span class="font-bold">Rola: </span>
+                            <span class="font-mono ps-2">{{ $role->name }}</span>
+                            <div class="text-base opacity-50">guard: {{ $role->guard_name }}</div>
+                            <div class="text-base opacity-50">ID: {{ $role->id }}</div>
                         </div>
                         <div class="flex flex-row">
-                            <a href="{{ route('admin.permissions.edit', Crypt::encryptString($permission->id)) }}">
+                            <a href="{{ route('admin.permissions.edit', Crypt::encryptString($role->id)) }}">
                                 <x-button>
                                     Edytuj
                                 </x-button>
                             </a>
                             <div class="px-2">
-                                <a href="{{ route('admin.permissions.delete', Crypt::encryptString($permission->id)) }}">
+                                <a href="{{ route('admin.roles.delete', Crypt::encryptString($role->id)) }}">
                         
-                                @if (count($roles) <> 0) 
+                                @if (count($users) <> 0) 
                                     <x-button-red disabled>Usuń</x-button-red>
                                 @else 
                                     <x-button-red >Usuń</x-button-red>
@@ -57,30 +57,28 @@
                 </div>
                 <div class="flex flex-row px-4 py-4 sm:px-6">
                     <div class="pe-4 opacity-50"> 
-                        przypisane do ról:
+                        posiada przypisane uprawnienia:
                     </div>
                     <div>
-                        @if (count($roles) <> 0)
-                            @foreach ($roles as $role)
+                        @if (count($permissions) <> 0)
+                            @foreach ($permissions as $permission)
                                 <div class="font-mono"> 
-                                    {{ $role->name }}
+                                    {{ $permission->name }}
                                 </div>
                             @endforeach
                         @else
                             <div class="font-mono font-semibold text-red-500"> 
-                                brak przypisań do ról
+                                brak przypisanych uprawnień
                             </div>  
                         @endif
                     </div>
                 </div>
 
-                @if ($users)
                 <div class="flex flex-row px-4 py-4 sm:px-6">
                     <div class="pe-4 opacity-50"> 
-                        bezpośrednio przypisane do użytkowników:
+                        przypisane do użytkowników:
                     </div>
                     <div>
-                        
                         @if (count($users) <> 0)
                             @foreach ($users as $user)
                                 <div class="font-mono items-center">
@@ -92,13 +90,12 @@
                             @endforeach
                         @else
                             <div class="font-mono font-semibold text-red-500"> 
-                                brak bezpośrednio przypisanych użytkowników
+                                brak przypisanych użytkowników
                             </div>
                         @endif
         
                     </div>
                 </div>
-                @endif
 
             </div>
         </div>

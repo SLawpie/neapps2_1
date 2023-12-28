@@ -19,9 +19,4 @@ yarn-error.log
 *copy.php
 *org.php
 docker-compose.yml
-<<<<<<< HEAD
 *.org
-=======
-*.org
-
->>>>>>> login-screen

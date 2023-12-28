@@ -31,12 +31,12 @@ class AdminPermissionController extends Controller
         ]);
     }
 
-    public function show($request) {
+    public function show($request) 
+    {
 
         try {
             $decrypted = Crypt::decryptString($request);
         } catch (DecryptException $e) {
-            dd($e);
             return back()->with([
                 'messagetype' => 'alert',
                 'message' => 'Coś poszło nie tak!.'
@@ -47,7 +47,9 @@ class AdminPermissionController extends Controller
         $roles = Role::with('permissions')->get()->filter(
             fn ($role) => $role->permissions->where('id', $permission->id)->toArray()
         );
-        $users = User::with('permissions')->get();
+        $users = User::with('permissions')->get()->filter(
+            fn ($user) => $user->permissions->where('id', $permission->id)->toArray()
+        );
 
         return view('admin.permissions.show')->with([
             'permission' => $permission,
@@ -56,7 +58,8 @@ class AdminPermissionController extends Controller
         ]);
     }
 
-    public function edit($request) {
+    public function edit($request) 
+    {
         try {
             $decrypted = Crypt::decryptString($request);
         } catch (DecryptException $e) {
@@ -74,7 +77,8 @@ class AdminPermissionController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id) 
+    {
         try {
             $decrypted = Crypt::decryptString($id);
         } catch (DecryptException $e) {
@@ -109,14 +113,16 @@ class AdminPermissionController extends Controller
         ]);
     }
 
-    public function create() {
+    public function create() 
+    {
 
         return view('admin.permissions.create');
     }
 
-    public function store(Request $request) {
+    public function store(Request $request) 
+    {
         $request->validate([
-            'new-name' => 'required|regex:/^[\pL\s\-]+$/u|max:128|unique:permissions,name',
+            'new-name' => 'required|regex:/^[\pL\-_]+$/u|max:128|unique:permissions,name',
         ]);
         $new_name =  $request->get('new-name');
 
@@ -128,7 +134,8 @@ class AdminPermissionController extends Controller
         ]);
     }
 
-    public function destroy($request) {
+    public function destroy($request) 
+    {
 
         try {
             $decrypted = Crypt::decryptString($request);

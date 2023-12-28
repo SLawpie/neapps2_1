@@ -33,9 +33,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::name('admin.')->group(function(){
     Route::name('roles.')->prefix('roles')->group(function() {
         Route::get('/', [AdminRoleController::class, 'index'])->name('index');
-        Route::get('/cr', [AdminPermissionController::class, 'create'])->name('create');
-        Route::get('/{role}/st', [AdminPermissionController::class, 'show'])->name('show');
-        Route::get('/{role}/de', [AdminPermissionController::class, 'destroy'])->name('delete');
+        Route::post('/', [AdminRoleController::class, 'store'])->name('store');
+        Route::get('/cr', [AdminRoleController::class, 'create'])->name('create');
+        Route::get('/{role}/st', [AdminRoleController::class, 'show'])->name('show');
+        Route::get('/{role}/de', [AdminRoleController::class, 'destroy'])->name('delete');
     });
     Route::name('permissions.')->prefix('permissions')->group(function() {
         Route::get('/', [AdminPermissionController::class, 'index'])->name('index');

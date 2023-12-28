@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
 @section('header')
-<div class="flex">
-    <div class="h-6 -ms-1  text-light-text-primary dark:text-dark-text-primary">
-        <a href="{{ route('home') }}">
-            <x-icons.chevron-double-left class="pe-2"/>
-        </a>
+    <div class="flex flex-row h-6 text-light-text-primary dark:text-dark-text-primary">
+        <x-path-link :href="route('home')">
+            <x-icons.home />
+        </x-path-link>
+        <x-icons.dot />
+        
+        <h2 class="bg-light-bg-secondary dark:bg-dark-bg-secondary font-semibold text-xl text-light-text-primary dark:text-dark-text-primary leading-tight">
+            Zarządzanie rolami
+        </h2>
     </div>
-    <h2 class="bg-light-bg-secondary dark:bg-dark-bg-secondary font-semibold text-xl text-light-text-primary dark:text-dark-text-primary leading-tight">
-        Zarządzanie rolami
-    </h2>
-</div>
 @endsection
 
 @section('content')
@@ -37,7 +37,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="sm:flex items-center px-4 pb-4 sm:px-6"> 
+                <div class="items-center px-4 pb-4 sm:px-6"> 
 
                     @foreach ($roles as $role)
                         <div class="flex flex-row w-full items-center py-1 hover:bg-light-bg-primary/70 hover:dark:bg-dark-bg-primary/70 rounded-md ">
