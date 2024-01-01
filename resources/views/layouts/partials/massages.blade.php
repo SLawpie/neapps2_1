@@ -1,5 +1,5 @@
 @if (($errors->any()) || ((session('messagetype'))))
-<div id="" class="flex justify-center w-full">
+<div id="hideMe" class="flex justify-center w-full">
     <div class="flex w-full sm:w-3/4 pb-6">
         
             @if (session('messagetype'))

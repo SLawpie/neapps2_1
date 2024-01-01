@@ -24,8 +24,8 @@ class AdminRoleController extends Controller
 
     public function index()
     {
-        $roles = Role::all();
-        // $roles = Role::whereNotIn('name', ['super-admin'])->get();
+        // $roles = Role::all();
+        $roles = Role::whereNotIn('name', ['super-admin'])->get();
         return view('admin.roles.index')->with([
             'roles' => $roles,
         ]);
@@ -59,6 +59,75 @@ class AdminRoleController extends Controller
         ]);
     }
 
+    public function edit($request) 
+    {
+        try {
+            $decrypted = Crypt::decryptString($request);
+        } catch (DecryptException $e) {
+            return back()->with([
+                'messagetype' => 'alert',
+                'message' => 'Coś poszło nie tak!.'
+            ]);
+        }
+
+        $role = Role::where('id', $decrypted)->first();
+        $role_permissions = Permission::with('roles')->get()->filter(
+            fn ($permission) => $permission->roles->where('id', $role->id)->toArray()
+        );
+        $permissions = Permission::all();
+
+        return view('admin.roles.edit')->with([
+            'role' => $role,
+            'role_permissions' => $role_permissions,
+            'permissions' => $permissions
+        ]);
+    }
+
+    public function update(Request $request, $id) 
+    {
+        try {
+            $decrypted = Crypt::decryptString($id);
+        } catch (DecryptException $e) {
+            // dd($e);
+            return back()->with([
+                'messagetype' => 'alert',
+                'message' => 'Coś poszło nie tak!.'
+            ]);
+        }
+        $role = Role::where('id', $decrypted)->first();
+        $new_name = ($request->get('new-name') === $role->name) ? false : true;
+        if ($new_name) {
+            $request->validate([
+                'new-name' => 'required|regex:/^[\pL\-_]+$/u|max:128|unique:roles,name',
+            ]);
+            $role->name = $request->get('new-name');
+        }
+
+        foreach ($request->all() as $item) {
+            if (str_contains($item, "p-")) {
+                $perm = trim($item, "p-");
+                $role->givePermissionTo(Permission::where('id', $perm)->first()->name);
+            }
+        }
+
+        $users = User::with('roles')->get()->filter(
+            fn ($user) => $user->roles->where('id', $role->id)->toArray()
+        );
+        $permissions = Permission::with('roles')->get()->filter(
+            fn ($permission) => $permission->roles->where('id', $role->id)->toArray()
+        );
+        $role->save();
+
+        return redirect()->route('admin.roles.show', $id)->with([
+            'role' => $role,
+            'permissions' => $permissions,
+            'users' => $users,
+            'messagetype' => 'success',
+            'message' => 'Rola została zakutalizowana'
+        ]);
+
+    }
+
     public function create() 
     {
 
@@ -78,5 +147,38 @@ class AdminRoleController extends Controller
             'messagetype' => 'success',
             'message' => 'Rola została utworzona'
         ]);
+    }
+
+    public function destroy($request) 
+    {
+
+        try {
+            $decrypted = Crypt::decryptString($request);
+        } catch (DecryptException $e) {
+            return back()->with([
+                'messagetype' => 'alert',
+                'message' => 'Coś poszło nie tak!.'
+            ]);
+        }
+
+        $role = Role::where('id', $decrypted)->first();
+        $users = User::with('roles')->get()->filter(
+            fn ($user) => $user->roles->where('id', $role->id)->toArray()
+        );
+
+        if (count($users) <> 0) {
+            return back()->with([
+                'messagetype' => 'alert',
+                'message' => 'Ta rola przynależy do użytkownika.'
+            ]);
+        }
+
+        $role->delete();
+
+        return redirect()->route('admin.roles.index')->with([
+            'messagetype' => 'success',
+            'message' => 'Rola została skasowane.'
+        ]);
+
     }
 }

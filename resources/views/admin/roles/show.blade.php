@@ -36,7 +36,7 @@
                             <div class="text-base opacity-50">ID: {{ $role->id }}</div>
                         </div>
                         <div class="flex flex-row">
-                            <a href="{{ route('admin.permissions.edit', Crypt::encryptString($role->id)) }}">
+                            <a href="{{ route('admin.roles.edit', Crypt::encryptString($role->id)) }}">
                                 <x-button>
                                     Edytuj
                                 </x-button>

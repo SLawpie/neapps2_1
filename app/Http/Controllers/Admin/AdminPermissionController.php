@@ -90,7 +90,7 @@ class AdminPermissionController extends Controller
         }
 
         $request->validate([
-            'new-name' => 'required|regex:/^[\pL\d\s\-]+$/u|max:128|unique:permissions,name',
+            'new-name' => 'required|regex:/^[\pL\-_]+$/u|max:128|unique:permissions,name',
         ]);
 
         $new_name =  $request->get('new-name');
@@ -140,7 +140,6 @@ class AdminPermissionController extends Controller
         try {
             $decrypted = Crypt::decryptString($request);
         } catch (DecryptException $e) {
-            dd($e);
             return back()->with([
                 'messagetype' => 'alert',
                 'message' => 'Coś poszło nie tak!.'

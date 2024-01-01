@@ -27,7 +27,7 @@ return [
     'version' => [
         'major' => '0',
         'minor' => '1',
-        'build' => '30-dev'
+        'build' => '32-dev'
     ],
 
     /*

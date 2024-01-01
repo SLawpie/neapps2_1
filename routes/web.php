@@ -36,6 +36,8 @@ Route::name('admin.')->group(function(){
         Route::post('/', [AdminRoleController::class, 'store'])->name('store');
         Route::get('/cr', [AdminRoleController::class, 'create'])->name('create');
         Route::get('/{role}/st', [AdminRoleController::class, 'show'])->name('show');
+        Route::get('/{role}/ed', [AdminRoleController::class, 'edit'])->name('edit');
+        Route::post('/{role}/ed', [AdminRoleController::class, 'update'])->name('update');
         Route::get('/{role}/de', [AdminRoleController::class, 'destroy'])->name('delete');
     });
     Route::name('permissions.')->prefix('permissions')->group(function() {
