@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminRoleController;
 use App\Http\Controllers\Admin\AdminPermissionController;
 use App\Http\Controllers\MedicalReports\MRController;
@@ -32,6 +33,11 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // Route::prefix('admin')->name('admin.')->group(function(){
 Route::name('admin.')->group(function(){
+    Route::name('users.')->prefix('users')->group(function() {
+        Route::get('/', [AdminUserController::class, 'index'])->name('index');
+        Route::post('/', [AdminUserController::class, 'store'])->name('store');
+        Route::get('/cr', [AdminUserController::class, 'create'])->name('create');
+    });
     Route::name('roles.')->prefix('roles')->group(function() {
         Route::get('/', [AdminRoleController::class, 'index'])->name('index');
         Route::post('/', [AdminRoleController::class, 'store'])->name('store');

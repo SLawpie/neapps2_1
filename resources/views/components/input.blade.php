@@ -15,6 +15,9 @@
         case 'password':
             $additionalClasses=' pl-2';
             break;
+        case 'email':
+            $additionalClasses=' pl-2';
+            break;
         default:
             $additionalClasses='';
             break;

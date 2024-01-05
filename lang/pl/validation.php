@@ -94,7 +94,7 @@ return [
     'min' => [
         'numeric' => 'The :attribute must be at least :min.',
         'file' => 'The :attribute must be at least :min kilobytes.',
-        'string' => 'Wybrane :attribute must mieć conajmniej :min znaków.',
+        'string' => 'Wybrane :attribute musi mieć conajmniej :min znaków.',
         'array' => 'The :attribute must have at least :min items.',
     ],
     'multiple_of' => 'The :attribute must be a multiple of :value.',
@@ -151,9 +151,15 @@ return [
             'required' => 'Żaden plik nie został wybrany.',
             'mimes' => 'Poprawne typy plików to: :values.',
         ],
-        'new-username' => [
+        'nchange-username' => [
             'required' => 'Błędna nazwa użytkownika. Została przywrócona pierwotna nazwa.',
             'alpha_num' => 'Nazwa użytkownika może zwierać tylko litery i cyfry.', 
+        ],
+        'new-username' => [
+            'alpha_num' => 'Nazwa użytkownika może zwierać tylko litery i cyfry.', 
+        ],
+        'new-firstname' => [
+            'alpha' => 'Imię może zwierać tylko litery.', 
         ],
         'confirm-newpassword' => [
             'same' => 'Potwierdzenie hasła nie jest zgodne.'
@@ -176,9 +182,10 @@ return [
 
     'attributes' => [
         'file' => "'plik'",
+        'new-username' => "'Użytkownik'",
         'new-firstname' => "'Imię'",
         'new-lastname' => "'Nazwisko'",
-        'newpassword' => 'hasło',
+        'new-password' => '"Hasło"',
         'new-name' => 'nazwa',
     ],
 

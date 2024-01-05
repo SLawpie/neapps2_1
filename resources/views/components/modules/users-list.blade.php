@@ -34,9 +34,11 @@
             @endforeach
 
             <div class="p-2"></div>
-            <div class="flex justify-center p-2 rounded-lg hover:bg-light-bg-primary/70 hover:dark:bg-dark-bg-primary/70 cursor-pointer">
-                pokaż wszystkich
-            </div>
+            <a href="{{ route('admin.users.index') }}">
+                <div class="flex justify-center p-2 rounded-lg hover:bg-light-bg-primary/70 hover:dark:bg-dark-bg-primary/70 cursor-pointer">
+                    pokaż wszystkich
+                </div>
+            </a>
         </div>
     </div>
 </div>
