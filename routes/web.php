@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminRoleController;
 use App\Http\Controllers\Admin\AdminPermissionController;
+use App\Http\Controllers\MedicalReports\MRController;
 use Illuminate\Http\Request;
 
 /*
@@ -51,7 +52,7 @@ Route::name('admin.')->group(function(){
     });
 });
 
-Route::prefix('medical-report')->group(function(){
+Route::prefix('medical-reports')->name('medical-reports.')->group(function(){
     Route::get('/', [MRController::class, 'index'])->name('index');
     //
     // alternative way
@@ -61,5 +62,5 @@ Route::prefix('medical-report')->group(function(){
     Route::post('/', [MRController::class, 'importFile'])->name('import-file');
     Route::get('/{sheets}', [MRController::class, 'readExamsTypes'])->name('read-exams-types');
     Route::get('/report/{report}', [MRController::class, 'showReport'])->name('show-report');
-// });
-})->middleware(['auth'])->name('medical-reports.');
+});
+// })->middleware(['auth']);
