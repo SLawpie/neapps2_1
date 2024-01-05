@@ -50,3 +50,16 @@ Route::name('admin.')->group(function(){
         Route::get('/{permission}/de', [AdminPermissionController::class, 'destroy'])->name('delete');
     });
 });
+
+Route::prefix('medical-report')->group(function(){
+    Route::get('/', [MRController::class, 'index'])->name('index');
+    //
+    // alternative way
+    //
+    // Route::get('/medical_reports', 'App\Http\Controllers\MedicalReports\MRController@index')->name('index');
+    //
+    Route::post('/', [MRController::class, 'importFile'])->name('import-file');
+    Route::get('/{sheets}', [MRController::class, 'readExamsTypes'])->name('read-exams-types');
+    Route::get('/report/{report}', [MRController::class, 'showReport'])->name('show-report');
+// });
+})->middleware(['auth'])->name('medical-reports.');
