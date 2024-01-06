@@ -25,7 +25,7 @@ class AdminUserController extends Controller
 
     public function index()
     {
-        $users = User::all();
+        $users = User::orderBy('id', 'asc')->get();
         return view('admin.users.index')->with([
             'users' => $users,
         ]);
@@ -137,7 +137,7 @@ class AdminUserController extends Controller
     {
         $request->validate([
             'new-username' => 'required|alpha_num|max:128|unique:users,username',
-            'new-firstname' => 'required|alpha|max:128|unique:users,username',
+            'new-firstname' => 'required|alpha|max:128',
             'new-password' => 'required|regex:/^.*(?=.*[a-zA-Z])(?=.*\d)(?=.*[!#$%&? "]).*$/u|min:6|max:30',
             'confirm-newpassword' => 'same:new-password',
         ]);

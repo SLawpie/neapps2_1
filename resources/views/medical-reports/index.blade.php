@@ -2,12 +2,7 @@
 
 
 @section('header')
-    <div class="flex flex-row text-xl font-semibold 
-    bg-light-bg-secondary dark:bg-dark-bg-secondary 
-    text-light-text-primary dark:text-dark-text-primary
-    ">
-        {{ __('medical-reports.name') }}
-    </div>
+    @include('medical-reports.partials.navigation')
 @endsection
 
 
