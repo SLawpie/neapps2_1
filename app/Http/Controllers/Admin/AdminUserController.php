@@ -156,6 +156,28 @@ class AdminUserController extends Controller
                 ]);
     }
 
+    public function show($request) {
+        
+        try {
+            $decrypted = Crypt::decryptString($request);
+        } catch (DecryptException $e) {
+            return back()->with([
+                'messagetype' => 'alert',
+                'message' => 'Coś poszło nie tak!.'
+            ]);
+        }
+
+        $user = User::where('id', $decrypted)->first();
+        $roles = $user->getRoleNames();
+
+        return view('admin.users.show')->with([
+            'user' => $user,
+            'roles' => $roles,
+        ]);
+    }
+
+    
+
     // public function destroy($request) 
     // {
 

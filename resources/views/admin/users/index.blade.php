@@ -48,7 +48,7 @@
                                         <div class="opacity-50">[id: {{ $user->id }}]</div>
                                     </div>
                                 </div>
-                                <a href="{{ route('admin.users.index', Crypt::encryptString($user->id)) }}">
+                                <a href="{{ route('admin.users.show', Crypt::encryptString($user->id)) }}">
                                     <div class="flex flex-row px-4 py-1 w-20 justify-center rounded-md uppercase text-xs hover:bg-light-accent dark:hover:bg-dark-accent hover:text-dark-text-primary hover:font-semibold">
                                         Pokaż
                                     </div>

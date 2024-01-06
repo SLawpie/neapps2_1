@@ -7,11 +7,13 @@
     <div class="sm:flex items-center px-2 py-4 sm:px-4">
         <div class="w-full">
             <div class="text-base font-bold pb-2">
-                Użtkowincy:
+                Użytkowincy:
             </div>
 
             @foreach ($users as $user)
-                <div class="flex flex-row px-2 items-center rounded-lg hover:bg-light-bg-primary/70 hover:dark:bg-dark-bg-primary/70 cursor-pointer">
+                <a class="flex flex-row px-2 items-center rounded-lg 
+                    hover:bg-light-bg-primary/70 hover:dark:bg-dark-bg-primary/70"
+                    href={{ route('admin.users.show', Crypt::encryptString($user->id)) }}>
                     <div class="w-8 sm:w-16 text-light-text-secondary/50 dark:text-dark-text-secondary/50">
                         <x-icons.user-circle class=""/>
                     </div>
@@ -30,7 +32,7 @@
                             @endforeach
                         </ul>
                     </div>
-                </div>
+                </a>
             @endforeach
 
             <div class="p-2"></div>

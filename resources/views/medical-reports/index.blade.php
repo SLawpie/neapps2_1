@@ -2,7 +2,7 @@
 
 
 @section('header')
-    @include('medical-reports.partials.navigation')
+    @include('medical-reports.partials.navigation', ["first" => "false"])
 @endsection
 
 

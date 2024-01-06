@@ -37,12 +37,13 @@ Route::name('admin.')->group(function(){
         Route::get('/', [AdminUserController::class, 'index'])->name('index');
         Route::post('/', [AdminUserController::class, 'store'])->name('store');
         Route::get('/cr', [AdminUserController::class, 'create'])->name('create');
+        Route::get('/{user}/sh', [AdminUserController::class, 'show'])->name('show');
     });
     Route::name('roles.')->prefix('roles')->group(function() {
         Route::get('/', [AdminRoleController::class, 'index'])->name('index');
         Route::post('/', [AdminRoleController::class, 'store'])->name('store');
         Route::get('/cr', [AdminRoleController::class, 'create'])->name('create');
-        Route::get('/{role}/st', [AdminRoleController::class, 'show'])->name('show');
+        Route::get('/{role}/sh', [AdminRoleController::class, 'show'])->name('show');
         Route::get('/{role}/ed', [AdminRoleController::class, 'edit'])->name('edit');
         Route::post('/{role}/ed', [AdminRoleController::class, 'update'])->name('update');
         Route::get('/{role}/de', [AdminRoleController::class, 'destroy'])->name('delete');
@@ -51,7 +52,7 @@ Route::name('admin.')->group(function(){
         Route::get('/', [AdminPermissionController::class, 'index'])->name('index');
         Route::post('/', [AdminPermissionController::class, 'store'])->name('store');
         Route::get('/cr', [AdminPermissionController::class, 'create'])->name('create');
-        Route::get('/{permission}/st', [AdminPermissionController::class, 'show'])->name('show');
+        Route::get('/{permission}/sh', [AdminPermissionController::class, 'show'])->name('show');
         Route::get('/{permission}/ed', [AdminPermissionController::class, 'edit'])->name('edit');
         Route::post('/{permission}/ed', [AdminPermissionController::class, 'update'])->name('update');
         Route::get('/{permission}/de', [AdminPermissionController::class, 'destroy'])->name('delete');
