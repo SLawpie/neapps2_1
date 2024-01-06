@@ -31,102 +31,6 @@ class AdminUserController extends Controller
         ]);
     }
 
-    // public function show($request) 
-    // {
-
-    //     try {
-    //         $decrypted = Crypt::decryptString($request);
-    //     } catch (DecryptException $e) {
-    //         return back()->with([
-    //             'messagetype' => 'alert',
-    //             'message' => 'Coś poszło nie tak!.'
-    //         ]);
-    //     }
-
-    //     $role = Role::where('id', $decrypted)->first();
-        
-    //     $users = User::with('roles')->get()->filter(
-    //         fn ($user) => $user->roles->where('id', $role->id)->toArray()
-    //     );
-    //     $permissions = Permission::with('roles')->get()->filter(
-    //         fn ($permission) => $permission->roles->where('id', $role->id)->toArray()
-    //     );
-
-    //     return view('admin.roles.show')->with([
-    //         'role' => $role,
-    //         'permissions' => $permissions,
-    //         'users' => $users
-    //     ]);
-    // }
-
-    // public function edit($request) 
-    // {
-    //     try {
-    //         $decrypted = Crypt::decryptString($request);
-    //     } catch (DecryptException $e) {
-    //         return back()->with([
-    //             'messagetype' => 'alert',
-    //             'message' => 'Coś poszło nie tak!.'
-    //         ]);
-    //     }
-
-    //     $role = Role::where('id', $decrypted)->first();
-    //     $role_permissions = Permission::with('roles')->get()->filter(
-    //         fn ($permission) => $permission->roles->where('id', $role->id)->toArray()
-    //     );
-    //     $permissions = Permission::all();
-
-    //     return view('admin.roles.edit')->with([
-    //         'role' => $role,
-    //         'role_permissions' => $role_permissions,
-    //         'permissions' => $permissions
-    //     ]);
-    // }
-
-    // public function update(Request $request, $id) 
-    // {
-    //     try {
-    //         $decrypted = Crypt::decryptString($id);
-    //     } catch (DecryptException $e) {
-    //         return back()->with([
-    //             'messagetype' => 'alert',
-    //             'message' => 'Coś poszło nie tak!.'
-    //         ]);
-    //     }
-    //     $role = Role::where('id', $decrypted)->first();
-    //     $new_name = ($request->get('new-name') === $role->name) ? false : true;
-    //     if ($new_name) {
-    //         $request->validate([
-    //             'new-name' => 'required|regex:/^[\pL\-_]+$/u|max:128|unique:roles,name',
-    //         ]);
-    //         $role->name = $request->get('new-name');
-    //     }
-
-    //     foreach ($request->all() as $item) {
-    //         if (str_contains($item, "p-")) {
-    //             $perm = trim($item, "p-");
-    //             $role->givePermissionTo(Permission::where('id', $perm)->first()->name);
-    //         }
-    //     }
-
-    //     $users = User::with('roles')->get()->filter(
-    //         fn ($user) => $user->roles->where('id', $role->id)->toArray()
-    //     );
-    //     $permissions = Permission::with('roles')->get()->filter(
-    //         fn ($permission) => $permission->roles->where('id', $role->id)->toArray()
-    //     );
-    //     $role->save();
-
-    //     return redirect()->route('admin.roles.show', $id)->with([
-    //         'role' => $role,
-    //         'permissions' => $permissions,
-    //         'users' => $users,
-    //         'messagetype' => 'success',
-    //         'message' => 'Rola została zakutalizowana'
-    //     ]);
-
-    // }
-
     public function create() 
     {
 
@@ -176,7 +80,72 @@ class AdminUserController extends Controller
         ]);
     }
 
+
+    public function edit($request) {
+        try {
+            $decrypted = Crypt::decryptString($request);
+        } catch (DecryptException $e) {
+            return back()->with([
+                'messagetype' => 'alert',
+                'message' => 'Coś poszło nie tak!.'
+            ]);
+        }
+
+        $user = User::where('id', $decrypted)->first();
+
+        return view('admin.users.edit')->with([
+            'user' => $user,
+        ]);
+
+    }
+
+
+    public function update(Request $request, $id) 
+    {
+        try {
+            $decrypted = Crypt::decryptString($id);
+        } catch (DecryptException $e) {
+            return back()->with([
+                'messagetype' => 'alert',
+                'message' => 'Coś poszło nie tak!.'
+            ]);
+        }
+
+        $request->validate([
+            'new-firstname' => 'required|alpha|max:128'
+        ]);
+
+        $user = User::where('id', $decrypted)->first();
+        $set_role = [];
+        foreach ($request->all() as $item) {
+            if (str_contains($item, "r-")) {
+                $set_role[] = trim($item, "r-");
+            }
+        }
+        foreach(Role::all() as $role) {
+            if (in_array($role->id, $set_role)) {
+                $user->assignRole($role);
+            } else {
+                if ($user->hasRole($role->name)) {
+                    $user->removeRole($role);
+                }
+            }
+        }
+        $user->firstname = $request->get('new-firstname');
+        $user->lastname = $request->get('new-lastname');
+        $user->email = $request->get('new-email');
+        $user->save();
+
+        $roles = $user->getRoleNames();
     
+        return redirect()->route('admin.users.show', $id)->with([
+            'user' => $user,
+            'roles' => $roles,
+            'messagetype' => 'success',
+            'message' => 'Dane użytkownika zostały zakutalizowane'
+        ]);
+
+    }
 
     // public function destroy($request) 
     // {

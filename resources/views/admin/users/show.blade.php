@@ -35,7 +35,7 @@
                             <div class="text-base opacity-50">ID: {{ $user->id }}</div>
                         </div>
                         <div class="flex flex-row">
-                            <a href="{{ route('admin.users.index', Crypt::encryptString($user->id)) }}">
+                            <a href="{{ route('admin.users.edit', Crypt::encryptString($user->id)) }}">
                                 <x-button>
                                     Edytuj
                                 </x-button>
