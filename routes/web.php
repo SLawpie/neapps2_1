@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdminRoleController;
 use App\Http\Controllers\Admin\AdminPermissionController;
 use App\Http\Controllers\MedicalReports\MRController;
 use Illuminate\Http\Request;
+use Illuminate\Auth\Middleware\Authorize;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,8 +33,8 @@ Auth::routes([
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // Route::prefix('admin')->name('admin.')->group(function(){
-Route::name('admin.')->group(function(){
-    Route::name('users.')->prefix('users')->group(function() {
+Route::group(['middleware' => ['role:super-admin|admin']], function(){
+    Route::name('admin.users.')->prefix('users')->group(function() {
         Route::get('/', [AdminUserController::class, 'index'])->name('index');
         Route::post('/', [AdminUserController::class, 'store'])->name('store');
         Route::get('/cr', [AdminUserController::class, 'create'])->name('create');
@@ -44,7 +45,7 @@ Route::name('admin.')->group(function(){
         Route::post('/{id}/cp', [AdminUserController::class, 'changePassword'])->name('change-password');
         Route::get('/{id}/de', [AdminUserController::class, 'destroy'])->name('delete');
     });
-    Route::name('roles.')->prefix('roles')->group(function() {
+    Route::name('admin.roles.')->prefix('roles')->group(function() {
         Route::get('/', [AdminRoleController::class, 'index'])->name('index');
         Route::post('/', [AdminRoleController::class, 'store'])->name('store');
         Route::get('/cr', [AdminRoleController::class, 'create'])->name('create');
@@ -53,7 +54,7 @@ Route::name('admin.')->group(function(){
         Route::post('/{role}/ed', [AdminRoleController::class, 'update'])->name('update');
         Route::get('/{role}/de', [AdminRoleController::class, 'destroy'])->name('delete');
     });
-    Route::name('permissions.')->prefix('permissions')->group(function() {
+    Route::name('admin.permissions.')->prefix('permissions')->group(function() {
         Route::get('/', [AdminPermissionController::class, 'index'])->name('index');
         Route::post('/', [AdminPermissionController::class, 'store'])->name('store');
         Route::get('/cr', [AdminPermissionController::class, 'create'])->name('create');
