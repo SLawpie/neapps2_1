@@ -16,5 +16,18 @@ class DecryptService {
     
         return explode(";", $decrypted);
     }
+
+    public static function decryptID($id) {
+        try {
+            $decrypted = Crypt::decryptString($id);
+        } catch (DecryptException $e) {
+            return back()->with([
+                'messagetype' => 'alert',
+                'message' => 'Coś poszło nie tak!.'
+            ]);
+        }
+
+        return $decrypted;
+    }
 }
 

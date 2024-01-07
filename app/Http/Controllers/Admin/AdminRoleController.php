@@ -102,11 +102,19 @@ class AdminRoleController extends Controller
             ]);
             $role->name = $request->get('new-name');
         }
-
+        $set_permission = [];
         foreach ($request->all() as $item) {
             if (str_contains($item, "p-")) {
-                $perm = trim($item, "p-");
-                $role->givePermissionTo(Permission::where('id', $perm)->first()->name);
+                $set_permission[] = trim($item, "p-");
+            }
+        }
+        foreach(Permission::all() as $permission) {
+            if (in_array($permission->id, $set_permission)) {
+                $role->givePermissionTo($permission);
+            } else {
+                if ($role->hasPermissionTo($permission)) {
+                    $role->revokePermissionTo($permission);
+                }
             }
         }
 

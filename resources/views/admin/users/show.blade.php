@@ -41,8 +41,8 @@
                                 </x-button>
                             </a>
                             <div class="px-2">
-                                <a href="{{ route('admin.users.index', Crypt::encryptString($user->id)) }}">
-                                    <x-button-red disabled >Usuń</x-button-red>
+                                <a href="{{ route('admin.users.delete', Crypt::encryptString($user->id)) }}">
+                                    <x-button-red >Usuń</x-button-red>
                                 </a>
                             </div>
                         </div>

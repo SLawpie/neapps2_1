@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Services\DecryptService;
+
 
 
 class AdminUserController extends Controller
@@ -60,16 +62,10 @@ class AdminUserController extends Controller
                 ]);
     }
 
-    public function show($request) {
-        
-        try {
-            $decrypted = Crypt::decryptString($request);
-        } catch (DecryptException $e) {
-            return back()->with([
-                'messagetype' => 'alert',
-                'message' => 'Coś poszło nie tak!.'
-            ]);
-        }
+    public function show($id) 
+    {
+
+        $decrypted = DecryptService::decryptID($id);
 
         $user = User::where('id', $decrypted)->first();
         $roles = $user->getRoleNames();
@@ -81,15 +77,10 @@ class AdminUserController extends Controller
     }
 
 
-    public function edit($request) {
-        try {
-            $decrypted = Crypt::decryptString($request);
-        } catch (DecryptException $e) {
-            return back()->with([
-                'messagetype' => 'alert',
-                'message' => 'Coś poszło nie tak!.'
-            ]);
-        }
+    public function edit($id) 
+    {
+
+        $decrypted = DecryptService::decryptID($id);
 
         $user = User::where('id', $decrypted)->first();
 
@@ -102,14 +93,8 @@ class AdminUserController extends Controller
 
     public function update(Request $request, $id) 
     {
-        try {
-            $decrypted = Crypt::decryptString($id);
-        } catch (DecryptException $e) {
-            return back()->with([
-                'messagetype' => 'alert',
-                'message' => 'Coś poszło nie tak!.'
-            ]);
-        }
+
+        $decrypted = DecryptService::decryptID($id);
 
         $request->validate([
             'new-firstname' => 'required|alpha|max:128'
@@ -147,36 +132,50 @@ class AdminUserController extends Controller
 
     }
 
-    // public function destroy($request) 
-    // {
+    public function changePasswordForm($id)
+    {
+        $decrypted = DecryptService::decryptID($id);
+        
+        return view('admin.users.change-password')->with([
+            'user' => User::where('id', $decrypted)->first(),
+        ]);;
+    }
 
-    //     try {
-    //         $decrypted = Crypt::decryptString($request);
-    //     } catch (DecryptException $e) {
-    //         return back()->with([
-    //             'messagetype' => 'alert',
-    //             'message' => 'Coś poszło nie tak!.'
-    //         ]);
-    //     }
+    public function changePassword(Request $request, $id) 
+    {
+        $decrypted = DecryptService::decryptID($id);
 
-    //     $role = Role::where('id', $decrypted)->first();
-    //     $users = User::with('roles')->get()->filter(
-    //         fn ($user) => $user->roles->where('id', $role->id)->toArray()
-    //     );
+        $validatedData = $request->validate([
+            'newpassword' => 'required',
+            'confirm-newpassword' => 'same:newpassword'
+        ]);
 
-    //     if (count($users) <> 0) {
-    //         return back()->with([
-    //             'messagetype' => 'alert',
-    //             'message' => 'Ta rola przynależy do użytkownika.'
-    //         ]);
-    //     }
+        $user = User::where('id', $decrypted)->first();
 
-    //     $role->delete();
+        $user->password = bcrypt($request->get('newpassword'));
+        $user->save();
 
-    //     return redirect()->route('admin.roles.index')->with([
-    //         'messagetype' => 'success',
-    //         'message' => 'Rola została skasowane.'
-    //     ]);
+        return redirect()
+            ->route('admin.users.edit', ['id' => $id])
+            ->with([
+                'messagetype' => 'success',
+                'message' => 'Hasło zostało zmienione..'
+            ]);
+    }
 
-    // }
+    public function destroy($id) 
+    {
+
+        $decrypted = DecryptService::decryptID($id);
+
+        $user = User::where('id', $decrypted)->first();
+        
+        $user->delete();
+
+        return redirect()->route('admin.users.index')->with([
+            'messagetype' => 'success',
+            'message' => 'Użytkownik został usunięty.'
+        ]);
+
+    }
 }

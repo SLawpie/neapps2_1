@@ -37,9 +37,12 @@ Route::name('admin.')->group(function(){
         Route::get('/', [AdminUserController::class, 'index'])->name('index');
         Route::post('/', [AdminUserController::class, 'store'])->name('store');
         Route::get('/cr', [AdminUserController::class, 'create'])->name('create');
-        Route::get('/{user}/sh', [AdminUserController::class, 'show'])->name('show');
-        Route::get('/{user}/ed', [AdminUserController::class, 'edit'])->name('edit');
-        Route::post('/{user}/ed', [AdminUserController::class, 'update'])->name('update');
+        Route::get('/{id}/sh', [AdminUserController::class, 'show'])->name('show');
+        Route::get('/{id}/ed', [AdminUserController::class, 'edit'])->name('edit');
+        Route::post('/{id}/ed', [AdminUserController::class, 'update'])->name('update');
+        Route::get('/{id}/cp', [AdminUserController::class, 'changePasswordForm'])->name('change-password-form');
+        Route::post('/{id}/cp', [AdminUserController::class, 'changePassword'])->name('change-password');
+        Route::get('/{id}/de', [AdminUserController::class, 'destroy'])->name('delete');
     });
     Route::name('roles.')->prefix('roles')->group(function() {
         Route::get('/', [AdminRoleController::class, 'index'])->name('index');

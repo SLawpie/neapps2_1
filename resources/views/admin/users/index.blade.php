@@ -53,11 +53,18 @@
                                         Pokaż
                                     </div>
                                 </a>
-                                <a href="{{ route('admin.users.index', Crypt::encryptString($user->id)) }}">
-                                    <div class="flex flex-row px-4 py-1 w-20 justify-center rounded-md uppercase text-xs hover:bg-red-500 hover:text-dark-text-primary hover:font-semibold">
+                                @if (!$user->hasRole('super-admin'))
+                                    <a href="{{ route('admin.users.delete', Crypt::encryptString($user->id)) }}">
+                                        <div class="flex flex-row px-4 py-1 w-20 justify-center rounded-md uppercase text-xs hover:bg-red-500 hover:text-dark-text-primary hover:font-semibold">
+                                            Usuń
+                                        </div>
+                                    </a>
+                                @else
+                                    <div class="flex flex-row px-4 py-1 w-20 justify-center uppercase text-xs
+                                        text-light-text-secondary dark:text-dark-text-secondary">
                                         Usuń
                                     </div>
-                                </a>
+                                @endif
                         </div>
                     @endforeach
 

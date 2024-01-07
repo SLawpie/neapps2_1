@@ -41,48 +41,23 @@
                             <x-button>
                                 Zapisz
                             </x-button>
-                            {{-- <div class="px-2">
-                                <a href="{{ route('admin.users.delete', Crypt::encryptString($user->id)) }}">
-                                    <x-button-red disabled >Usuń</x-button-red>
-                                </a>
-                            </div> --}}
                         </div>
                     </div>
                 </div>
-                {{-- <div class="flex flex-row px-4 pb-4 sm:px-6">
-                    <div class="pe-4 opacity-50"> 
-                        przypisane role:
-                    </div>
-                    <div>
-                        @if (count($roles) <> 0)
-                            @foreach ($roles as $role)
-                                <div class="font-mono"> 
-                                    {{ $role }}
-                                </div>
-                            @endforeach
-                        @else
-                            <div class="font-mono font-semibold text-red-500"> 
-                                brak przypisanej roli
-                            </div>  
-                        @endif
-                    </div>
-                </div> --}}
+
                 <div class="flex w-full px-4 pb-4">
                     <div class="">
                         <div class="h-36 w-36 mx-auto">
                             <x-icons.user class="fill-light-bg-primary dark:fill-dark-bg-primary"/>
                         </div>
-                        <x-button disabled class="text-[10px] py-0 px-2 rounded-[4px]">Zmień</x-button>
-                        <x-button-red disabled class="text-[10px] py-0 px-2 rounded-[4px]">Usuń</x-button-red>
+                        <x-button disabled class="text-xs py-0 px-2 rounded-[4px]">Zmień</x-button>
+                        <x-button-red disabled class="text-xs py-0 px-2 rounded-[4px]">Usuń</x-button-red>
                     </div>
                     <div class="ps-8">
                         <div class="sm:flex sm:text-lg px-4 pb-4 sm:px-6">
                             <div class="pe-4 sm:min-w-40">
                                 Imię:
                             </div>
-                            {{-- <div class="pe-4 font-mono font-semibold">
-                                {{ $user->firstname}}
-                            </div> --}}
                             <x-input 
                                 required
                                 id="new-firstname"
@@ -98,9 +73,6 @@
                             <div class="pe-4 sm:min-w-40">
                                 Nazwisko:
                             </div>
-                            {{-- <div class="pe-4 font-mono font-semibold">
-                                {{ $user->lasttname}}
-                            </div> --}}
                             <x-input 
                                 id="new-lasttname"
                                 type="text" 
@@ -114,9 +86,6 @@
                             <div class="pe-4 sm:min-w-40">
                                 e-mail:
                             </div>
-                            {{-- <div class="pe-4 font-mono font-semibold">
-                                {{ $user->email}}
-                            </div> --}}
                             <x-input
                                 required
                                 id="new-email"
@@ -132,9 +101,11 @@
                                 Hasło:
                             </div>
                             <div class="pe-4 font-mono font-semibold">
-                                <x-button disabled>
-                                    zmiana hasła
-                                </x-button>
+                                <a href="{{ route('admin.users.change-password-form', Crypt::encryptString($user->id)) }}">
+                                    <x-button type="button">
+                                        zmiana hasła
+                                    </x-button>
+                                </a>
                             </div>
                         </div>
                     </div>
