@@ -35,16 +35,30 @@
                             <div class="text-base opacity-50">ID: {{ $user->id }}</div>
                         </div>
                         <div class="flex flex-row">
-                            <a href="{{ route('admin.users.edit', Crypt::encryptString($user->id)) }}">
-                                <x-button>
+                            @if (auth()->user()->can('edit users') && !($user->hasRole('super-admin')))
+                                <a href="{{ route('admin.users.edit', Crypt::encryptString($user->id)) }}">
+                                    <x-button>
+                                        Edytuj
+                                    </x-button>
+                                </a>
+                            @else
+                                <x-button disabled>
                                     Edytuj
                                 </x-button>
-                            </a>
+                            @endif
+                            
                             <div class="px-2">
-                                <a href="{{ route('admin.users.delete', Crypt::encryptString($user->id)) }}">
-                                    <x-button-red >Usuń</x-button-red>
-                                </a>
+                                    
+                                @if (auth()->user()->can('delete users'))
+                                    <a href="{{ route('admin.users.delete', Crypt::encryptString($user->id)) }}">
+                                        <x-button-red>Usuń</x-button-red>
+                                    </a>
+                                @else
+                                    <x-button-red disabled >Usuń</x-button-red>
+                                @endif
+                                
                             </div>
+                        
                         </div>
                     </div>
                 </div>

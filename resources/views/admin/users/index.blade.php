@@ -53,7 +53,8 @@
                                         Pokaż
                                     </div>
                                 </a>
-                                @if (!$user->hasRole('super-admin'))
+                                {{-- @if (auth()->user()->hasRole('writer')) --}}
+                                @if (!$user->hasRole('super-admin') && ($user->id != auth()->user()->id) && (auth()->user()->can('delete users')))
                                     <a href="{{ route('admin.users.delete', Crypt::encryptString($user->id)) }}">
                                         <div class="flex flex-row px-4 py-1 w-20 justify-center rounded-md uppercase text-xs hover:bg-red-500 hover:text-dark-text-primary hover:font-semibold">
                                             Usuń

@@ -41,23 +41,30 @@
 
                     @foreach ($roles as $role)
                         <div class="flex flex-row w-full items-center py-1 hover:bg-light-bg-primary/70 hover:dark:bg-dark-bg-primary/70 rounded-md ">
-                                <div class="ps-2 pe-4">{{ $loop->index + 1 }}.</div>
-                                <div class="grow">
-                                    <div class="sm:flex sm:flex-row">
-                                        <div>{{ $role->name }}</div>
-                                        <div class="opacity-50">[id: {{ $role->id }}, guard: {{ $role->guard_name }}]</div>
-                                    </div>
+                            <div class="ps-2 pe-4">{{ $loop->index + 1 }}.</div>
+                            <div class="grow">
+                                <div class="sm:flex sm:flex-row">
+                                    <div>{{ $role->name }}</div>
+                                    <div class="opacity-50">[id: {{ $role->id }}, guard: {{ $role->guard_name }}]</div>
                                 </div>
-                                <a href="{{ route('admin.roles.show', Crypt::encryptString($role->id)) }}">
-                                    <div class="flex flex-row px-4 py-1 w-20 justify-center rounded-md uppercase text-xs hover:bg-light-accent dark:hover:bg-dark-accent hover:text-dark-text-primary hover:font-semibold">
-                                        Pokaż
-                                    </div>
-                                </a>
+                            </div>
+                            <a href="{{ route('admin.roles.show', Crypt::encryptString($role->id)) }}">
+                                <div class="flex flex-row px-4 py-1 w-20 justify-center rounded-md uppercase text-xs hover:bg-light-accent dark:hover:bg-dark-accent hover:text-dark-text-primary hover:font-semibold">
+                                    Pokaż
+                                </div>
+                            </a>
+                            @if ((auth()->user()->hasRole('super-admin')) || (auth()->user()->can('delete roles')))
                                 <a href="{{ route('admin.roles.delete', Crypt::encryptString($role->id)) }}">
                                     <div class="flex flex-row px-4 py-1 w-20 justify-center rounded-md uppercase text-xs hover:bg-red-500 hover:text-dark-text-primary hover:font-semibold">
                                         Usuń
                                     </div>
                                 </a>
+                            @else
+                                <div class="flex flex-row px-4 py-1 w-20 justify-center uppercase text-xs
+                                text-light-text-secondary dark:text-dark-text-secondary">
+                                Usuń
+                            </div>
+                            @endif
                         </div>
                     @endforeach
 

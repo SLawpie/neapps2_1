@@ -37,9 +37,16 @@
                         </div>
                         <div class="flex flex-row">
                             <a href="{{ route('admin.roles.edit', Crypt::encryptString($role->id)) }}">
-                                <x-button>
-                                    Edytuj
-                                </x-button>
+                                @if ((auth()->user()->can('edit role')) || (auth()->user()->hasRole('super-admin')))
+                                    <x-button>
+                                        Edytuj
+                                    </x-button>
+                                @else
+                                    <x-button disabled>
+                                        Edytuj
+                                    </x-button>
+                                @endif
+                                
                             </a>
                             <div class="px-2">
                                 <a href="{{ route('admin.roles.delete', Crypt::encryptString($role->id)) }}">

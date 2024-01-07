@@ -36,11 +36,17 @@
                             <div class="text-base opacity-50">ID: {{ $permission->id }}</div>
                         </div>
                         <div class="flex flex-row">
-                            <a href="{{ route('admin.permissions.edit', Crypt::encryptString($permission->id)) }}">
-                                <x-button>
+                            @if (auth()->user()->can('edit permissions'))
+                                <a href="{{ route('admin.permissions.edit', Crypt::encryptString($permission->id)) }}">
+                                    <x-button>
+                                        Edytuj
+                                    </x-button>
+                                </a>
+                            @else
+                                <x-button disabled>
                                     Edytuj
                                 </x-button>
-                            </a>
+                            @endif
                             <div class="px-2">
                                 <a href="{{ route('admin.permissions.delete', Crypt::encryptString($permission->id)) }}">
                         

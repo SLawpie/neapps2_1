@@ -1,21 +1,27 @@
 @extends('layouts.app')
 
-@section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">{{ __('dashboard.welcome') }}</div>
+@section('header')
+    <x-admin-header />
+@endsection
 
-                    <div class="card-body">
-                        @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
-                            </div>
-                        @endif
-                        {{ Auth::user()->firstname }} - 
-                        {{ __('You are logged in!') }}
-                    </div>
+@section('content')
+    <div class="py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                <x-app-card active :href="route('medical-reports.index')">
+                    <x-slot name="image">
+                        <img src="{{ asset('images/raporty.icon.png') }}" alt="Medical Reports Icon">
+                    </x-slot>
+                    {{ __('medical-reports.name') }}
+                </x-app-card>
+                <div class="">
+                    <x-app-card />
+                </div>
+                <div class="invisible sm:visible">
+                    <x-app-card />
+                </div>
+                <div class="invisible lg:visible">
+                    <x-app-card />
                 </div>
             </div>
         </div>

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\User;
+use App\Http\Services\DecryptService;
 
 
 class AdminRoleController extends Controller
@@ -19,13 +21,14 @@ class AdminRoleController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     public function index()
     {
         // $roles = Role::all();
         $roles = Role::whereNotIn('name', ['super-admin'])->get();
+
         return view('admin.roles.index')->with([
             'roles' => $roles,
         ]);
@@ -157,23 +160,16 @@ class AdminRoleController extends Controller
         ]);
     }
 
-    public function destroy($request) 
+    public function destroy($id) 
     {
-
-        try {
-            $decrypted = Crypt::decryptString($request);
-        } catch (DecryptException $e) {
-            return back()->with([
-                'messagetype' => 'alert',
-                'message' => 'Coś poszło nie tak!.'
-            ]);
-        }
+        $decrypted = DecryptService::decryptID($id);
 
         $role = Role::where('id', $decrypted)->first();
+        
         $users = User::with('roles')->get()->filter(
             fn ($user) => $user->roles->where('id', $role->id)->toArray()
         );
-
+        
         if (count($users) <> 0) {
             return back()->with([
                 'messagetype' => 'alert',
@@ -182,8 +178,11 @@ class AdminRoleController extends Controller
         }
 
         $role->delete();
+        // $deleted = DB::table('roles')->where('id', $decrypted)->delete();
 
+        $roles = Role::whereNotIn('name', ['super-admin'])->get();
         return redirect()->route('admin.roles.index')->with([
+            'roles' => $roles,
             'messagetype' => 'success',
             'message' => 'Rola została skasowane.'
         ]);
