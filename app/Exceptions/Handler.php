@@ -51,9 +51,14 @@ class Handler extends ExceptionHandler
             if ($e->getPrevious() instanceof \Illuminate\Session\TokenMismatchException) {
                 return redirect()->route('login');
             };
-            // if ($e->getStatusCode() == 403) {
-            //     return redirect('home'); // this will be on a 403 exception
-            // }
+
+            if ($e instanceof \Illuminate\Auth\Access\UnauthorizedException)  {
+                return redirect()->route('home');
+            };
+
+            if ($e instanceof \Spatie\Permission\Exceptions\UnauthorizedException) {
+                return redirect()->route('home');
+            };
         });
     }
 }
