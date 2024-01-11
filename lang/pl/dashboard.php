@@ -9,5 +9,5 @@ return [
     */
 
     'welcome' => "Witaj!",
-    'goodtoseeyou' => "Jak dobrze znowu Ciebie widzieć!"
+    'greetings' => "Jak dobrze znowu Ciebie widzieć!",
 ];

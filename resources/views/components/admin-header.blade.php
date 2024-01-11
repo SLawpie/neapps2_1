@@ -6,7 +6,7 @@
         {{ Auth::user()->firstname }}. 
     </div>
     <div class="hidden sm:block ps-2 font-medium">
-        {{ __('dashboard.goodtoseeyou') }}
+        {{ __('dashboard.greetings') }}
     </div>
     <div class="sm:hidden ps-2 font-medium">
         {{ __('dashboard.welcome') }}
