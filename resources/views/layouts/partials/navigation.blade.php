@@ -24,6 +24,12 @@
                     <x-nav-link :href="route('medical-reports.index')" :active="request()->routeIs('medical-reports.*')">
                         {{ __('medical-reports.name') }}
                     </x-nav-link>
+                    @role('visitor')
+                        <x-nav-link :href="route('visitor.admin-panel')" :active="request()->routeIs(['admin.*', 'visitor.*'])">
+                            Panel Admina
+                        </x-nav-link>
+                    @endrole
+
                 </div>
             </div>
 

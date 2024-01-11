@@ -32,6 +32,16 @@ class UserController extends Controller
         ]);
 
         $user = Auth::user();
+
+        if ($user->hasRole('visitor')) {
+            return redirect()
+            ->route('user.show')
+            ->with([
+                'messagetype' => 'info',
+                'message' => 'Konto gościa. Dane nie zostały zmienione.'
+            ]);
+        }
+
         $user->username = $request->get('new-username');
         $user->firstname = $request->get('new-firstname');
         $user->lastname = $request->get('new-lastname');
@@ -62,7 +72,7 @@ class UserController extends Controller
                 ]);
         }
 
-        if(strcmp($request->get('password'), $request->get('newpassword')) == 0) {
+        if(strcmp($request->get('password'), $request->get('new-password')) == 0) {
             //Current password and new password are same
             return back()
                 ->with([
@@ -74,12 +84,22 @@ class UserController extends Controller
         $validatedData = $request->validate([
             'password' => 'required',
             'new-password' => 'required|regex:/^.*(?=.*[a-zA-Z])(?=.*\d)(?=.*[!#$%&? "]).*$/u|min:6|max:30',
-            'confirm-newpassword' => 'same:newpassword'
+            'confirm-newpassword' => 'same:new-password'
         ]);
 
         //Change Password
         $user = Auth::user();
-        $user->password = bcrypt($request->get('newpassword'));
+
+        if ($user->hasRole('visitor')) {
+            return redirect()
+            ->route('user.show')
+            ->with([
+                'messagetype' => 'info',
+                'message' => 'Konto gościa. Hasło nie zostało zmienione.'
+            ]);
+        }
+
+        $user->password = bcrypt($request->get('new-password'));
         $user->save();
 
         return redirect()

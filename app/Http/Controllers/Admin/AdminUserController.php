@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Crypt;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Services\DecryptService;
+use Illuminate\Support\Facades\Auth;
 
 
 
@@ -21,8 +22,8 @@ class AdminUserController extends Controller
      * @return void
      */
     public function __construct()
-    {
-        // $this->middleware('auth');
+    {   
+        //
     }
 
     public function index()
@@ -47,6 +48,15 @@ class AdminUserController extends Controller
             'new-password' => 'required|regex:/^.*(?=.*[a-zA-Z])(?=.*\d)(?=.*[!#$%&? "]).*$/u|min:6|max:30',
             'confirm-newpassword' => 'same:new-password',
         ]);
+
+        if (Auth::user()->hasRole('visitor')) {
+            return redirect()
+                ->route('admin.users.index')
+                ->with([
+                    'messagetype' => 'info',
+                    'message' => 'Konto gościa. Użytkownik nie został utworzony.'
+                ]);
+        }
 
         User::create([
             'username' =>  $request->get('new-username'),

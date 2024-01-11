@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\User;
 use App\Http\Services\DecryptService;
+use Illuminate\Support\Facades\Auth;
 
 
 class AdminRoleController extends Controller
@@ -150,6 +151,16 @@ class AdminRoleController extends Controller
         $request->validate([
             'new-name' => 'required|regex:/^[\pL\-_]+$/u|max:128|unique:roles,name',
         ]);
+
+        if (Auth::user()->hasRole('visitor')) {
+            return redirect()
+                ->route('admin.roles.index')
+                ->with([
+                    'messagetype' => 'info',
+                    'message' => 'Konto gościa. Rola nie została utworzona.'
+                ]);
+        }
+
         $new_name =  $request->get('new-name');
 
         $permission = Role::create(['name' => $new_name]);

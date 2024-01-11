@@ -2,10 +2,7 @@
 
 @section('header')
     <div class="flex flex-row h-6 text-light-text-primary dark:text-dark-text-primary">
-        <x-path-link :href="route('home')">
-            <x-icons.home />
-        </x-path-link>
-        <x-icons.dot />
+        <x-admin-home-link />
         <x-path-link :href="route('admin.roles.index')">
             <x-icons.chevron-double-left />
         </x-path-link>

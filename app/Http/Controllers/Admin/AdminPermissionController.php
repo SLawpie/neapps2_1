@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class AdminPermissionController extends Controller
 {
@@ -124,6 +125,16 @@ class AdminPermissionController extends Controller
         $request->validate([
             'new-name' => 'required|regex:/^[\pL\-_]+$/u|max:128|unique:permissions,name',
         ]);
+
+        if (Auth::user()->hasRole('visitor')) {
+            return redirect()
+                ->route('admin.permissions.index')
+                ->with([
+                    'messagetype' => 'info',
+                    'message' => 'Konto gościa. Uprawnienie nie zostało utworzone.'
+                ]);
+        }
+
         $new_name =  $request->get('new-name');
 
         $permission = Permission::create(['name' => $new_name]);

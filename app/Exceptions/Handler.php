@@ -52,13 +52,13 @@ class Handler extends ExceptionHandler
                 return redirect()->route('login');
             };
 
-            if ($e instanceof \Illuminate\Auth\Access\UnauthorizedException)  {
-                return redirect()->route('home');
-            };
+            // if ($e instanceof \Illuminate\Auth\Access\UnauthorizedException)  {
+            //     return redirect()->route('home');
+            // };
 
-            if ($e instanceof \Spatie\Permission\Exceptions\UnauthorizedException) {
-                return redirect()->route('home');
-            };
+            // if ($e instanceof \Spatie\Permission\Exceptions\UnauthorizedException) {
+            //     return redirect()->route('home');
+            // };
         });
     }
 }

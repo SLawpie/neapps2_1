@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdminRoleController;
 use App\Http\Controllers\Admin\AdminPermissionController;
 use App\Http\Controllers\MedicalReports\MRController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VisitorController;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Middleware\Authorize;
 
@@ -34,7 +35,7 @@ Auth::routes([
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // Route::prefix('admin')->name('admin.')->group(function(){
-Route::group(['middleware' => ['role:super-admin|admin']], function(){
+Route::group(['middleware' => ['role:super-admin|admin|visitor']], function(){
     Route::name('admin.users.')->prefix('users')->group(function() {
         Route::get('/', [AdminUserController::class, 'index'])->name('index');
         Route::post('/', [AdminUserController::class, 'store'])->name('store');
@@ -85,4 +86,8 @@ Route::prefix('user')->name('user.')->group(function(){
     Route::post('/edit', [UserController::class, 'update'])->name('update');
     Route::get('/cp', [UserController::class, 'changePasswordForm'])->name('change-password-form');
     Route::post('/cp', [UserController::class, 'changePassword'])->name('change-password');
+});
+
+Route::prefix('visitor')->name('visitor.')->group(function(){
+    Route::get('/ap', [VisitorController::class, 'adminPanel'])->name('admin-panel');
 });
