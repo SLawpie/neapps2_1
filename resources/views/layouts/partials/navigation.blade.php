@@ -84,7 +84,6 @@
                             </div>
                         </div>
                         <div class="pt-2">
-                            {{-- <x-dropdown-link :href="route('user.show', Crypt::encryptString(Auth::user()->id))"> --}}
                             <x-dropdown-link :href="route('user.show')">
                                 {{ __('app.user.settings') }}
                             </x-dropdown-link>

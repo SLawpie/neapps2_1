@@ -81,8 +81,8 @@ Route::prefix('medical-reports')->name('medical-reports.')->group(function(){
 
 Route::prefix('user')->name('user.')->group(function(){
     Route::get('/', [UserController::class, 'show'])->name('show');
-    Route::post('/edit/{id}', [UserController::class, 'update'])->name('update');
-    Route::get('/edit/{id}', [UserController::class, 'edit'])->name('edit');
-    Route::get('/cp/{id}', [UserController::class, 'changePasswordForm'])->name('change-password-form');
-    Route::post('/cp/{id}', [UserController::class, 'changePassword'])->name('change-password');
+    Route::get('/edit', [UserController::class, 'edit'])->name('edit');
+    Route::post('/edit', [UserController::class, 'update'])->name('update');
+    Route::get('/cp', [UserController::class, 'changePasswordForm'])->name('change-password-form');
+    Route::post('/cp', [UserController::class, 'changePassword'])->name('change-password');
 });
