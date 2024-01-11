@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminRoleController;
 use App\Http\Controllers\Admin\AdminPermissionController;
 use App\Http\Controllers\MedicalReports\MRController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Middleware\Authorize;
 
@@ -77,3 +78,11 @@ Route::prefix('medical-reports')->name('medical-reports.')->group(function(){
     Route::get('/report/{report}', [MRController::class, 'showReport'])->name('show-report');
 });
 // })->middleware(['auth']);
+
+Route::prefix('user')->name('user.')->group(function(){
+    Route::get('/', [UserController::class, 'show'])->name('show');
+    Route::post('/edit/{id}', [UserController::class, 'update'])->name('update');
+    Route::get('/edit/{id}', [UserController::class, 'edit'])->name('edit');
+    Route::get('/cp/{id}', [UserController::class, 'changePasswordForm'])->name('change-password-form');
+    Route::post('/cp/{id}', [UserController::class, 'changePassword'])->name('change-password');
+});
