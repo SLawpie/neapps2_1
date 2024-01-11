@@ -28,6 +28,11 @@
                         <div id="error-message" class="hidden pt-4 text-red-600 text-xl font-bold">
                             Niektórych badań brakuje w cenniku!
                         </div>
+                        @role('visitor')
+                            <div id="error-message" class="mt-4 py-2 rounded-md bg-red-600 text-xl font-bold">
+                                <div class="flex text-white justify-center">Raport jest tylko poglądowy</div>
+                            </div>
+                        @endrole
                     </div>
                     <div class="sm:grow"></div>
                     <div class="report-area sm:flex-none pt-4 sm:pt-0 sm:px-6 justify-center cursor-pointer" onClick="switchToText()">

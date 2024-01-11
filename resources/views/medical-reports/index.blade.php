@@ -14,6 +14,15 @@
                 <div class="p-6 order-b border-dark-bg">
                     Wykaz przeprowadzonych badań dla konkretnego lekarza.
                 </div>
+                @role('visitor')
+                    <div class="px-6 pb-6 order-b border-dark-bg">
+                        <a href="{{ Storage::url('example-report-(324).xls') }}" title="Emaple File">
+                            <x-button  type="button">
+                                Przykładowy plik do pobrania
+                            </x-button>
+                        </a>
+                    </div>
+                @endrole
             </div>
         </div>
     </div>

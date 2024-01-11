@@ -3,6 +3,7 @@
 namespace App\Http\Services;
 
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class MRService {
 
@@ -49,12 +50,17 @@ class MRService {
     public static function getPrices($doctorName, $examType)
     {
         $priceList = [];
-        $file ="/jsons/medical-reports/price-list.json";
+        if (Auth::user()->hasRole('visitor')) {
+            $file ="/jsons/medical-reports/guest-price-list.json";
+        } else {
+            $file ="/jsons/medical-reports/price-list.json";
+        };
         
         $contents = json_decode(Storage::get($file), true);
         $doctors = $contents['doctor'];
         foreach ($doctors as $doctor) {
-            if ($doctor['name'] == $doctorName) {
+            if (($doctor['name'] == $doctorName) || (Auth::user()->hasRole('visitor')) ){
+                
                 $examTypes = $doctor['examTypes'];
                 foreach ($examTypes as $type) {
                     if ($type['type'] == $examType) {
