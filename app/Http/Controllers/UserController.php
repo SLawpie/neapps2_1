@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Activitylog\Models\Activity;
 
 class UserController extends Controller
 {
@@ -13,9 +14,19 @@ class UserController extends Controller
         $this->middleware('auth');
     }
 
-    public function show()
-    {
-        return view('user.show');
+    public function show(Request $request)
+    {   
+        $userId = Auth::user()->id;
+        $loginActivity = Activity::where('log_name' , 'login-log')
+            ->where('causer_id', $userId)
+            ->orderBy('created_at','desc')
+            ->limit(10)
+            ->get();
+        $timezone = $request->session()->pull('timezone', 'UTC');
+        return view('user.show')->with([
+                'timezone' => $timezone,
+                'activities' => $loginActivity,
+            ]);
     }
 
     public function edit() 

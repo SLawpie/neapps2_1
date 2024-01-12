@@ -154,28 +154,44 @@
                             Ostatnia aktywność
                         </div>
                         <div class="flex justify-center w-full">
-                            <div class="table w-full lg:w-3/4 text-sm lg:text-base">
+                            <div class="table w-full lg:w-3/4 text-sm lg:text-sm">
                                 <div class="table-header-group font-bold uppercase">
                                     <div class="table-row">
                                         <div class="table-cell text-center">Lp.</div>
                                         <div class="table-cell text-center">Data</div>
-                                        <div class="hidden sm:table-cell text-left">Przeglądarka</div>
-                                        <div class="hidden sm:table-cell text-left">System</div>
+                                        <div class="hidden sm:table-cell text-center">Przeglądarka</div>
+                                        {{-- <div class="hidden sm:table-cell text-left">System</div> --}}
                                         <div class="table-cell text-center">Ip</div>
-                                        <div class="table-cell text-left">Kraj</div>
-                                        <div class="table-cell text-center">Status</div>
+                                        {{-- <div class="table-cell text-left">Kraj</div> --}}
+                                        {{-- <div class="table-cell text-center">Status</div> --}}
                                     </div>
                                 </div>
                                 <div class="table-row-group">
-                                    <div class="table-row">
-                                        <div class="table-cell text-center">X</div>
-                                        <div class="table-cell text-center">X.XX.XXXX</div>
-                                        <div class="hidden sm:table-cell">Xxxxxx</div>
-                                        <div class="hidden sm:table-cell">Xxxxxxx XX</div>
-                                        <div class="table-cell text-center">XXX.XXX.XXX.XXX</div>
-                                        <div class="table-cell">Xxxxxxxxx</div>
-                                        <div class="table-cell font-bold text-center text-red-500 ">XXXX</div>
-                                    </div>
+                                    @foreach ($activities as $activity)
+                                        <div class="table-row">
+                                            <div class="table-cell text-center">
+                                                {{ $loop->iteration }}
+                                            </div>
+                                            <div class="table-cell text-center">
+                                                {{ $activity
+                                                    ->created_at
+                                                    ->setTimezone($timezone)
+                                                    ->format('d.m.Y - H:i:s') }}
+                                                </div>
+                                            <div class="hidden sm:table-cell text-center">
+                                                {{ substr($activity->getExtraProperty('userAgent'),0,70)."[...]" }}</div>
+                                            {{-- <div class="hidden sm:table-cell">Xxxxxxx XX</div> --}}
+                                            <div class="table-cell text-center">
+                                                {{ $activity->getExtraProperty('ips')['publicIp'] }}
+                                            </div>
+                                            {{-- <div class="table-cell">Xxxxxxxxx</div> --}}
+                                            {{-- @if ($activity->description == 'success')
+                                                <div class="table-cell font-bold text-center text-green-600 ">OK</div>
+                                            @else
+                                                <div class="table-cell font-bold text-center text-red-500 ">Błąd</div>
+                                            @endif --}}
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>

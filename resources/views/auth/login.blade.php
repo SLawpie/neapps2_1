@@ -122,7 +122,9 @@
                                 {{ __('Forgot your password?') }}
                             </a>
                         @endif --}}
-        
+
+                        <input id="timezone" name="timezone" value="" type="hidden">   
+
                         <x-button class="ml-3">
                             {{ __('auth.login.button') }}
                         </x-button>
@@ -135,3 +137,12 @@
     </div>
 </div>
 @endsection
+
+@section('scripts')
+<script type="text/javascript">
+    $(document).ready(function() {
+        var timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        document.getElementById("timezone").value = timezone;
+    });
+</script>
+@stop

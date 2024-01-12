@@ -29,5 +29,6 @@
 
         <!-- Scripts -->
         <script src="{{ asset('js/nea.js') }}"></script>
+        @yield('scripts')
     </body>
 </html>

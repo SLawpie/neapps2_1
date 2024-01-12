@@ -8,6 +8,6 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'welcome' => "Witaj!",
-    'greetings' => "Jak dobrze znowu Ciebie widzieć!",
+    'welcome' => 'Witaj!',
+    'greetings' => 'Jak dobrze znowu Ciebie widzieć!',
 ];

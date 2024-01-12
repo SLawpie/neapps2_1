@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Spatie\Activitylog\Models\Activity;
 
 
 class HomeController extends Controller
@@ -24,7 +25,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
         //
@@ -36,9 +37,16 @@ class HomeController extends Controller
         // get the names of the user's roles
         // $roles = $user->getRoleNames();
         if ($user->hasRole(['admin', 'super-admin'])) {
+            $loginActivity = Activity::where('log_name' , 'login-log')
+                ->orderBy('created_at','desc')
+                ->limit(10)
+                ->get();
             $users = User::latest()->limit(3)->get();
+            $timezone = $request->session()->pull('timezone', 'UTC');
             return view('admin.dashboard')->with([
                 'users' => $users,
+                'timezone' => $timezone,
+                'activities' => $loginActivity,
             ]);
         };
 
