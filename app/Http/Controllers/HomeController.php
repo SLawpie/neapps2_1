@@ -42,7 +42,8 @@ class HomeController extends Controller
                 ->limit(10)
                 ->get();
             $users = User::latest()->limit(3)->get();
-            $timezone = $request->session()->pull('timezone', 'UTC');
+            $timezone = $request->session()->get('timezone', 'UTC');
+
             return view('admin.dashboard')->with([
                 'users' => $users,
                 'timezone' => $timezone,

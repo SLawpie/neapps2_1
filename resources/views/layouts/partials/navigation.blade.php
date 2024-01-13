@@ -127,7 +127,7 @@
             <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
                 {{ __('app.home') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('home')">
+            <x-responsive-nav-link :href="route('medical-reports.index')">
                 {{ __('medical-reports.name') }}
             </x-responsive-nav-link>
         </div>
@@ -150,7 +150,7 @@
 
             <div class="mt-3 space-y-1">
                 {{-- <x-responsive-nav-link :href="route('user.show', Crypt::encryptString(Auth::user()->id))"> --}}
-                <x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('user.show')">
                     {{ __('app.user.settings') }}
                 </x-responsive-nav-link>
                 <!-- Authentication -->
