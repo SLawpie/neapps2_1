@@ -71,6 +71,8 @@
                                 {{-- <div class="hidden sm:table-cell">Xxxxxx</div> --}}
                                 @if ($activity->description == 'success')
                                     <td class="table-cell font-bold text-center text-green-600 ">OK</td>
+                                @elseif ($activity->description == 'logout')
+                                    <td class="table-cell font-bold text-center text-blue-500 ">Logout</td>
                                 @else
                                     <td class="table-cell font-bold text-center text-red-500 ">Błąd</td>
                                 @endif

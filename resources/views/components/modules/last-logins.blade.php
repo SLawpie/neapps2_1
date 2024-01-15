@@ -20,8 +20,9 @@
                             <th class="table-cell text-center">Data</th>
                             <th class="hidden sm:table-cell text-center">Przeglądarka / System</th>
                             {{-- <div class="hidden sm:table-cell text-left">System</div> --}}
-                            <th class="table-cell text-center">Ip</div>
+                            <th class="table-cell text-center">Ip</th>
                             {{-- <div class="hidden sm:table-cell text-left">Kraj</div> --}}
+                            <th class="table-cell text-center">Status</th>
                         </tr>
                         {{-- </div> --}}
                     </thead>
@@ -55,6 +56,14 @@
                                     {{ $activity->getExtraProperty('ips')['publicIp'] }}
                                 </td>
                                 {{-- <div class="hidden sm:table-cell">Xxxxxx</div> --}}
+                                @if ($activity->description == 'success')
+                                    <td class="table-cell font-bold text-center text-green-600 ">OK</td>
+                                @elseif ($activity->description == 'logout')
+                                    <td class="table-cell font-bold text-center text-blue-500 px-2">Logout</td>
+                                @else
+                                    <td class="table-cell font-bold text-center text-red-500 ">Błąd</td>
+                                @endif
+
                             </tr>
                             {{-- </div> --}}
                         @endforeach

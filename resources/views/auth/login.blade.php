@@ -124,6 +124,7 @@
                         @endif --}}
 
                         <input id="timezone" name="timezone" value="" type="hidden">   
+                        <input id="ipaddress" name="ipaddress" value="" type="hidden"> 
 
                         <x-button class="ml-3">
                             {{ __('auth.login.button') }}
@@ -141,7 +142,12 @@
 @section('scripts')
 <script type="text/javascript">
     $(document).ready(function() {
-        var timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        let timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        $.getJSON("https://api.ipify.org?format=jsonp&callback=?",
+            function(json) {
+                document.getElementById("ipaddress").value = json.ip;
+                // document.write("My public IP address is: ", json.ip);
+        });
         document.getElementById("timezone").value = timezone;
     });
 </script>
