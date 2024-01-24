@@ -130,6 +130,11 @@
             <x-responsive-nav-link :href="route('medical-reports.index')">
                 {{ __('medical-reports.name') }}
             </x-responsive-nav-link>
+            @role('visitor')
+                <x-responsive-nav-link :href="route('visitor.admin-panel')">
+                    Panel Admina
+                </x-responsive-nav-link>
+            @endrole
         </div>
 
         <!-- Responsive Settings Options -->
