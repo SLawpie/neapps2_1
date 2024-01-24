@@ -27,7 +27,9 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $user = Auth::user();
+        // $user = Auth::user();
+
+
         //
         // test if sspatie-permissions works correctly
         //
@@ -36,21 +38,44 @@ class HomeController extends Controller
 
         // get the names of the user's roles
         // $roles = $user->getRoleNames();
-        if ($user->hasRole(['admin', 'super-admin'])) {
-            $loginActivity = Activity::where('log_name' , 'login-log')
-                ->orderBy('created_at','desc')
-                ->limit(10)
-                ->get();
-            $users = User::latest()->limit(3)->get();
-            $timezone = $request->session()->get('timezone', 'UTC');
 
-            return view('admin.dashboard')->with([
-                'users' => $users,
-                'timezone' => $timezone,
-                'activities' => $loginActivity,
-            ]);
-        };
+
+        // if ($user->hasRole(['admin', 'super-admin'])) {
+        //     $loginActivity = Activity::where('log_name' , 'login-log')
+        //         ->orderBy('created_at','desc')
+        //         ->limit(10)
+        //         ->get();
+        //     $users = User::latest()->limit(3)->get();
+        //     $timezone = $request->session()->get('timezone', 'UTC');
+
+        //     return view('admin.dashboard')->with([
+        //         'users' => $users,
+        //         'timezone' => $timezone,
+        //         'activities' => $loginActivity,
+        //     ]);
+        // };
 
         return view('home');
+    }
+
+    public function adminPanel(Request $request)
+    {
+      $user = Auth::user();
+      if ($user->hasRole(['admin', 'super-admin'])) {
+        $loginActivity = Activity::where('log_name' , 'login-log')
+            ->orderBy('created_at','desc')
+            ->limit(10)
+            ->get();
+        $users = User::latest()->limit(3)->get();
+        $timezone = $request->session()->get('timezone', 'UTC');
+
+        return view('admin.dashboard')->with([
+            'users' => $users,
+            'timezone' => $timezone,
+            'activities' => $loginActivity,
+        ]);
+      };
+
+      return view('home');
     }
 }

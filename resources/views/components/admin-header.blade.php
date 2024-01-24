@@ -5,10 +5,7 @@
     <div class="font-semibold leading-tight">
         {{ Auth::user()->firstname }}. 
     </div>
-    <div class="hidden sm:block ps-2 font-medium">
-        {{ __('dashboard.greetings') }}
-    </div>
-    <div class="sm:hidden ps-2 font-medium">
+    <div class="ps-2 font-medium">
         {{ __('dashboard.welcome') }}
     </div>
 </div>
