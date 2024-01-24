@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminRoleController;
 use App\Http\Controllers\Admin\AdminPermissionController;
 use App\Http\Controllers\MedicalReports\MRController;
+use App\Http\Controllers\Dedusting\DedustingController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VisitorController;
 use App\Http\Controllers\HomeController;
@@ -83,6 +84,12 @@ Route::prefix('medical-reports')->name('medical-reports.')->group(function(){
   Route::get('/report/{report}', [MRController::class, 'showReport'])->name('show-report');
 });
 // })->middleware(['auth']);
+
+Route::group(['middleware'], function(){
+  Route::name('dedusting.')->prefix('dd')->group(function() {
+    Route::get('/fa', [DedustingController::class, 'filtrationArea'])->name('filtration-area');
+  });
+});
 
 Route::prefix('user')->name('user.')->group(function(){
   Route::get('/', [UserController::class, 'show'])->name('show');
