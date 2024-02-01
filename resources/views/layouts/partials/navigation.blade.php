@@ -26,9 +26,11 @@
                             Administracja
                         </x-nav-link>
                     @endrole
-                    <x-nav-link :href="route('medical-reports.index')" :active="request()->routeIs('medical-reports.*')">
+                    @can('medical-reports')
+                      <x-nav-link :href="route('medical-reports.index')" :active="request()->routeIs('medical-reports.*')">
                         {{ __('medical-reports.name') }}
-                    </x-nav-link>
+                      </x-nav-link>
+                    @endcan
                     @role('visitor')
                         <x-nav-link :href="route('visitor.admin-panel')" :active="request()->routeIs(['admin.*', 'visitor.*'])">
                             Panel Admina
@@ -130,19 +132,21 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
                 {{ __('app.home') }}
+            </x-responsive-nav-link>
             @role(['admin','super-admin'])
-            <x-responsive-nav-link :href="route('admin.admin-panel')">
+              <x-responsive-nav-link :href="route('admin.admin-panel')">
                 Administaracja
-            </x-responsive-nav-link>
+              </x-responsive-nav-link>
             @endrole
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('medical-reports.index')">
+            @can('medical-reports')
+              <x-responsive-nav-link :href="route('medical-reports.index')">
                 {{ __('medical-reports.name') }}
-            </x-responsive-nav-link>
+              </x-responsive-nav-link>
+            @endcan
             @role('visitor')
-                <x-responsive-nav-link :href="route('visitor.admin-panel')">
-                    Panel Admina
-                </x-responsive-nav-link>
+              <x-responsive-nav-link :href="route('visitor.admin-panel')">
+                Panel Admina
+              </x-responsive-nav-link>
             @endrole
         </div>
 

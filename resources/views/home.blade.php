@@ -15,9 +15,13 @@
           {{ __('medical-reports.name') }}
         </x-app-card>
         <div class="">
-          <x-app-card active :href="route('dedusting.filtration-area')">
-            Pow. filtracyjna
-          </x-app-card>
+          @if ((auth()->user()->canany(['dedusting'])))
+            <x-app-card active :href="route('dedusting.filtration-area')">
+              Pow. filtracyjna
+            </x-app-card>
+          @else
+            <x-app-card />
+          @endif
         </div>
         <div class="invisible sm:visible">
           <x-app-card />

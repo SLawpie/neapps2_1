@@ -33,32 +33,69 @@
                             <div class="text-base opacity-50">ID: {{ $role->id }}</div>
                         </div>
                         <div class="flex flex-row">
-                            <a href="{{ route('admin.roles.edit', Crypt::encryptString($role->id)) }}">
-                                @if ((auth()->user()->can('edit role')) || (auth()->user()->hasRole('super-admin')))
-                                    <x-button>
-                                        Edytuj
-                                    </x-button>
-                                @else
-                                    <x-button disabled>
-                                        Edytuj
-                                    </x-button>
-                                @endif
-                                
-                            </a>
-                            <div class="px-2">
+                            
+                            @if ((auth()->user()->can('edit roles')))
+                              <a href="{{ route('admin.roles.edit', Crypt::encryptString($role->id)) }}">
+                                <x-button>
+                                  Edytuj
+                                </x-button>
+                              </a>
+                            @else
+                              <x-button-disabled>
+                                Edytuj
+                              </x-button>
+                            @endif
+                            
+                            @if ((auth()->user()->can('delete roles')))
+                              <div class="px-2">
                                 <a href="{{ route('admin.roles.delete', Crypt::encryptString($role->id)) }}">
                         
                                 @if (count($users) <> 0) 
-                                    <x-button-red disabled>Usuń</x-button-red>
+                                  <x-button-red-disabled>
+                                    Usuń
+                                  </x-button-red-disabled>
                                 @else 
-                                    <x-button-red >Usuń</x-button-red>
+                                  <x-button-red>
+                                    Usuń
+                                  </x-button-red>
                                 @endif
 
                                 </a>
-                            </div>
+                              </div>
+                            @else
+                              <div class="px-2">
+                                <x-button-red-disabled>
+                                  Usuń
+                                </x-button-red-disabled>
+                              </div>
+                            @endif
                         </div>
                     </div>
                 </div>
+
+                <div class="flex flex-row px-4 py-4 sm:px-6">
+                  <div class="pe-4 opacity-50"> 
+                      przypisane do użytkowników:
+                  </div>
+                  <div>
+                      @if (count($users) <> 0)
+                          @foreach ($users as $user)
+                              <div class="font-mono items-center">
+                                  {{ $user->username }}
+                                  @php
+                                      $role = Spatie\Permission\Models\Role::with('users')->where('id', $user->id)->first();
+                                  @endphp
+                              </div>
+                          @endforeach
+                      @else
+                          <div class="font-mono font-semibold text-red-500"> 
+                              brak przypisanych użytkowników
+                          </div>
+                      @endif
+      
+                  </div>
+              </div>
+
                 <div class="flex flex-row px-4 py-4 sm:px-6">
                     <div class="pe-4 opacity-50"> 
                         posiada przypisane uprawnienia:
@@ -78,28 +115,7 @@
                     </div>
                 </div>
 
-                <div class="flex flex-row px-4 py-4 sm:px-6">
-                    <div class="pe-4 opacity-50"> 
-                        przypisane do użytkowników:
-                    </div>
-                    <div>
-                        @if (count($users) <> 0)
-                            @foreach ($users as $user)
-                                <div class="font-mono items-center">
-                                    {{ $user->username }}
-                                    @php
-                                        $role = Spatie\Permission\Models\Role::with('users')->where('id', $user->id)->first();
-                                    @endphp
-                                </div>
-                            @endforeach
-                        @else
-                            <div class="font-mono font-semibold text-red-500"> 
-                                brak przypisanych użytkowników
-                            </div>
-                        @endif
-        
-                    </div>
-                </div>
+                
 
             </div>
         </div>
