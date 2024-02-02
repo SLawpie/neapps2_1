@@ -26,7 +26,7 @@
                             Wartość przeprowadzonych badań: <b>{{ $text }}zł</b>.
                         </div>
                         <div id="error-message" class="hidden pt-4 text-red-600 text-xl font-bold">
-                            Niektórych badań brakuje w cenniku!
+                            Cennik jest niekompletny
                         </div>
                         @role('visitor')
                             <div id="error-message" class="mt-4 py-2 rounded-md bg-red-600 text-xl font-bold">
@@ -85,7 +85,7 @@
                                         @endphp
                                     
                                         <div>{{ $exam['name'] }}</div>
-                                        <div class="pl-2">= {{ $text }}zł</div>
+                                        <div class="pl-2"> = {{ $text }}zł</div>
                                         
                                     </div>
 
@@ -100,21 +100,24 @@
                                     @endphp
 
                                     @foreach ($payers as $j => $payer)
+                                      @php
+                                        $formatedText = new NumberFormatter('de-DE', NumberFormatter::DECIMAL);
+                                        $text = $formatedText->format($payer['amount']);
+                                      @endphp
+                                      @if ($text == 0)
+                                        <div class="flex text-red-600 font-semibold">
+                                      @else
                                         <div class="flex">
-                                            <div class="flex text-light-text-secondary dark:text-dark-text-secondary basis-10 justify-center">
-                                                {{ $payer['sum'] }}
-                                            </div>
-                                            <div>
-                                                {{ $payer['name'] }}
-                                            </div>
-                                            <div class="flex pl-2 text-light-text-secondary dark:text-dark-text-secondary">
-                                                @php
-                                                    $formatedText = new NumberFormatter('de-DE', NumberFormatter::DECIMAL);
-                                                    $text = $formatedText->format($payer['amount']);
-                                                @endphp
-                                               x {{ $payer['price'] }}zł = {{ $text }}zł
-                                               
-                                            </div>
+                                      @endif
+                                          <div class="flex text-light-text-secondary dark:text-dark-text-secondary basis-10 justify-center">
+                                            {{ $payer['sum'] }}
+                                          </div>
+                                          <div>
+                                            {{ $payer['name'] }}
+                                          </div>
+                                          <div class="pl-2 text-light-text-secondary dark:text-dark-text-secondary">
+                                            x {{ $payer['price'] }}zł = {{ $text }}zł
+                                          </div>
                                         </div>
                                     @endforeach
                                 </div>

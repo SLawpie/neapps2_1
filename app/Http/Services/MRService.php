@@ -100,9 +100,11 @@ class MRService {
         $price = 0;
         $defaultPayer = "wg. cennika przychodni";
         $payers = [
+            "brak płatnika",
             "Płatne",
             "PZU",
-            "ArcelorMittal S.A. Oddział w Zdzieszowicach"
+            "ArcelorMittal S.A. Oddział w Zdzieszowicach",
+            "COMPENSA",
         ];
 
         $cellExam = '';     // [D] - dla #sekcji# badan i [E]-dla badania
@@ -183,9 +185,11 @@ class MRService {
 
                             //test
                             // echo "cellPayer[C]: $cellPayer<br>";
-
-                            in_array($cellPayer, $payers) ? $payer = $cellPayer : $payer = $defaultPayer;
-
+                            if ($cellPayer == "") {
+                              $payer = $payers[0];
+                            } else {
+                              in_array($cellPayer, $payers) ? $payer = $cellPayer : $payer = $defaultPayer;
+                            }
                             //test
                             // echo "payer: $payer<br>";
 
